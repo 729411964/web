@@ -44,7 +44,7 @@
     </script>
     <!-- demo root element -->
     <div id="demo">
-      <demo-form v-bind:data="form-data">
+      <demo-form >
       </demo-form>
       <form id="search">
         Search <input name="query" v-model="searchQuery">
@@ -171,6 +171,9 @@ demo.$on("loadTable",function(param){
   this.gridData.push(data);
 
   console.log(this.$data);
+})
+demo.$on("loadTable",function(param){
+  console.log("第二个订阅者");
 })
 </script>
 </html>
