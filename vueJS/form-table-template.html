@@ -32,12 +32,12 @@
     </script>
     <script type="text/x-template" id="form-template">
       <form >
-        <input type="text" v-model="input1" placeholder="edit me">
-        <input type="text" v-model="input2" placeholder="edit me">
-        <input type="text" v-model="input3" placeholder="edit me">
-        <input type="text" v-model="input4" placeholder="edit me">
-        <input type="text" v-model="input5" placeholder="edit me">
-        <input type="text" v-model="input6" placeholder="edit me">
+        name<input type="text" v-model="input1" placeholder="edit me">
+        power<input type="text" v-model="input2" placeholder="edit me">
+        Text1<input type="text" v-model="input3" placeholder="edit me">
+        Text2<input type="text" v-model="input4" placeholder="edit me">
+        Text3<input type="text" v-model="input5" placeholder="edit me">
+        Text4<input type="text" v-model="input6" placeholder="edit me">
         <p>Message is: {{ input1 }}-{{ input2 }}-{{ input3 }}-{{ input4 }}-{{ input5 }}-{{ input6 }}</p>
         <input type="button" value="223" v-on:click="wing">
       </form>
@@ -169,7 +169,7 @@ demo.$on("loadTable",function(param){
   data.text3=param.input5;
   data.text4=param.input6;
   this.gridData.push(data);
-  
+
   console.log(this.$data);
 })
 </script>
