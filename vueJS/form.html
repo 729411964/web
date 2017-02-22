@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>表单组件</title>
+  </head>
+  <body>
+    <form id="form-demo">
+      <input type="text" v-model="input1" placeholder="edit me">
+      <input type="text" v-model="input2" placeholder="edit me">
+      <input type="text" v-model="input3" placeholder="edit me">
+      <input type="text" v-model="input4" placeholder="edit me">
+      <input type="text" v-model="input5" placeholder="edit me">
+      <input type="text" v-model="input6" placeholder="edit me">
+      <p>Message is: {{ input1 }}-{{ input2 }}-{{ input3 }}-{{ input4 }}-{{ input5 }}-{{ input6 }}</p>
+      <input type="button" value="223" v-on:click="wing">
+    </form>
+
+  </body>
+  <script src="js/vue.js"></script>
+  <script type="text/javascript">
+  var a=new Vue({
+    el:"#form-demo",
+    data:{
+      input1:"",
+      input2:"",
+      input3:"",
+      input4:"",
+      input5:"",
+      input6:""
+    },
+    methods:{
+      wing:function(event){
+          for(var i in this.$data){
+            console.log(i);
+            this.$data[i]="121";
+          }
+          console.log(this.$data);
+      }
+
+    }
+  })
+
+  </script>
+</html>
