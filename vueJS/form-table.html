@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>表单-表格Demo</title>
+    <link rel="stylesheet" href="css/table.css">
+  </head>
+  <body>
+    <!-- component template -->
+    <script type="text/x-template" id="grid-template">
+      <table>
+        <thead>
+          <tr>
+            <!-- v-on： 可缩写为@ ； v-bind： 可缩写为 ： -->
+            <th v-for="key in columns"
+              v-on:click="sortBy(key)"
+              v-bind:class="{ active: sortKey == key }">
+              {{ key | capitalize }}
+              <span class="arrow" v-bind:class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="entry in filteredData">
+            <td v-for="key in columns">
+              {{entry[key]}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </script>
+
+    <!-- demo root element -->
+    <div id="demo">
+    <form id="form-demo">
+      name<input type="text" v-model="input1" placeholder="edit me">
+      power<input type="text" v-model="input2" placeholder="edit me">
+      Text1<input type="text" v-model="input3" placeholder="edit me">
+      Text2<input type="text" v-model="input4" placeholder="edit me">
+      Text3<input type="text" v-model="input5" placeholder="edit me">
+      Text4<input type="text" v-model="input6" placeholder="edit me">
+      <p>Message is: {{ input1 }}-{{ input2 }}-{{ input3 }}-{{ input4 }}-{{ input5 }}-{{ input6 }}</p>
+      <input type="button" value="按钮" v-on:click="wing">
+    </form>
+    <div >
+      <form id="search">
+        Search <input name="query" v-model="searchQuery">
+      </form>
+      <demo-grid
+        v-bind:data="gridData"
+        v-bind:columns="gridColumns"
+        v-bind:filter-key="searchQuery">
+      </demo-grid>
+    </div>
+  </div>
+  </body>
+<script src="js/vue.js"></script>
+<script type="text/javascript">
+
+// register the grid component
+Vue.component('demo-grid', {
+  template: '#grid-template',
+  props: {
+    // 带prorp校验
+    data: Array,
+    columns: Array,
+    filterKey: String
+  },
+
+  // props:["data","columns","filterKey"], // 不带props校验
+  data: function () {
+    //data属性，自定义组件中必须为函数，用来返回模板加载的数据对象
+    var sortOrders = {}
+    console.log(this);
+    this.columns.forEach(function (key) {
+      sortOrders[key] = 1
+    })
+    return {
+      sortKey: '',
+      sortOrders: sortOrders
+    }
+  },
+  computed: {
+    filteredData: function () {
+      console.log(this);
+      //计算属性，数据会根据依赖的改变而改变，此处为排序
+      var sortKey = this.sortKey
+      var filterKey = this.filterKey && this.filterKey.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      var data = this.data
+      if (filterKey) {
+        //若此数据改变，则执行此分支，此分支为表格的搜索
+        data = data.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+          })
+        })
+      }
+      if (sortKey) {
+        //若此数据改变，则执行此分支，此分支为排序
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return data
+    }
+  },
+  filters: {
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  },
+  methods: {
+    sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
+    }
+  }
+})
+
+// bootstrap the demo
+var demo = new Vue({
+  el: '#demo',
+  data: {
+    searchQuery: '',
+    gridColumns: ['name', 'power','text1','text2','text3','text4'],
+    gridData: [
+      { name: 'Chuck Norris', power: Infinity,text1:23,text2:34,text4:54,text3:56 },
+      { name: 'Bruce Lee', power: 9000 ,text1:33,text2:344,text4:554,text3:566},
+      { name: 'Jackie Chan', power: 7000 ,text1:233,text2:334,text4:584,text3:576},
+      { name: 'Jet Li', power: 8000 ,text1:223,text2:434,text4:554,text3:516}
+    ],
+    input1:"",
+    input2:"",
+    input3:"",
+    input4:"",
+    input5:"",
+    input6:""
+  },
+  methods:{
+    wing:function(event){
+      var data={};
+      data.name=this.input1;
+      data.power=this.input2;
+      data.text1=this.input3;
+      data.text2=this.input4;
+      data.text3=this.input5;
+      data.text4=this.input6;
+      this.gridData.push(data);
+        for(var i in this.$data){
+          console.log(i);
+
+        }
+        console.log(this.$data);
+    }
+
+  }
+})
+</script>
+</html>
