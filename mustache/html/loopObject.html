@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>便利对象</title>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+      <script src="../js/mustache.min.js"></script>
+
+  </head>
+  <body>
+  </body>
+  <script type="text/javascript">
+  $(function(){
+    var view = {
+      "name": {
+         "first": "Michael",
+         "last": "Jackson"
+      },
+      "age": "RIP"
+    };
+
+   var output = Mustache.render("{{name}} spends {{age}}",view);
+   console.log(output)// [object Object] spends RIP
+   var output1 = Mustache.render("{{name.first}} 和{{name.last}} spends {{age}}",view);
+   console.log(output1); //Michael 和Jackson spends RIP
+
+  })
+
+
+
+  </script>
+</html>
