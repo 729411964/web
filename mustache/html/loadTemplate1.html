@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>模板加载方法一</title>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+      <script src="../js/mustache.min.js"></script>
+  </head>
+  <body onload ="loadUser()">
+  <div  id = "target">正在加载... </ div >
+   <script  id = "template" type = "x-tmpl-mustache ">
+  您好{{name}} ！
+  </script >
+  </body>
+<script type="text/javascript">
+function  loadUser(){
+   var template = $("#template").html();
+  Mustache.parse(template) ; //可选，加快未来使用
+  var rendered =  Mustache.render(template,{name : "Luke"});
+  $("#target").html(rendered);
+}
+</script>
+</html>
