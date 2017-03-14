@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>函数</title>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+      <script src="../js/mustache.min.js"></script>
+
+  </head>
+  <body>
+  </body>
+  <script type="text/javascript">
+  $(function(){
+    var view = {
+      "name": "Tater",
+      "bold": function () {
+          return function (text, render) {
+                return "<b>" + render(text) + "</b>";
+                }
+              }
+    };
+
+   var output = Mustache.render("{{#bold}}{{/bold}}",view);
+   console.log(output)//<b></b>
+   var output1 = Mustache.render("{{#bold}} {{name}} {{/bold}}",view);
+   console.log(output1); //<b> Tater </b>
+
+  })
+
+
+
+  </script>
+</html>
