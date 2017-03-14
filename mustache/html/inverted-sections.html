@@ -2,25 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>mustache</title>
+    <title>反转的</title>
     <script src="../js/jquery-1.10.1.min.js"></script>
       <script src="../js/mustache.min.js"></script>
 
   </head>
   <body>
-    <script id=""></script>
   </body>
   <script type="text/javascript">
   $(function(){
     var view = {
-       title :"Joe",
-       calc : function(){
-          return 2+4;
-       }
+      "repos": []
     };
 
-var output = Mustache.render("{{title}} spends {{calc}}",view);
-console.log(output)
+   var output = Mustache.render("{{#repos}}ss{{/repos}}",view);
+   console.log(output)//<b></b>
+   var output1 = Mustache.render("{{^repos}}aaa {{name}} {{/repos}}",view);
+   console.log(output1); //<b> Tater </b>
+
   })
 
 
