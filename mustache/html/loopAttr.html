@@ -16,11 +16,16 @@
          { "name": "Moe" },
          { "name": "Larry" },
          { "name": "Curly" }
-     ]
+     ],
+     "attr": [
+        "moe",
+        "Larry",
+        "Curly"
+    ]
     };
 
-   var output = Mustache.render("{{#stooges}}{{/stooges}}",view);
-   console.log(output)//
+   var output = Mustache.render("{{#attr}} {{.}} {{/attr}}",view);
+   console.log(output)//moe Larry Curly
    var output1 = Mustache.render("{{#stooges}} {{name}} {{/stooges}}",view);
    console.log(output1); //MoeLarryCurly
 
