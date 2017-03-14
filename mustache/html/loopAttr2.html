@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>遍历数组2</title>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+      <script src="../js/mustache.min.js"></script>
+
+  </head>
+  <body>
+  </body>
+  <script type="text/javascript">
+  $(function(){
+    var view = {
+      "beatles": [
+
+        { "firstName": "John", "lastName": "Lennon" },
+        { "firstName": "Paul", "lastName": "McCartney" },
+        { "firstName": "George", "lastName": "Harrison" },
+        { "firstName": "Ringo", "lastName": "Starr" }
+      ],
+      "name": function () {
+          return this.firstName + " " + this.lastName;
+        }
+    };
+
+   var output = Mustache.render("{{#beatles}}{{/beatles}}",view);
+   console.log(output)//
+   var output1 = Mustache.render("{{#beatles}} {{name}} {{/beatles}}",view);
+   console.log(output1); //MoeLarryCurly
+
+  })
+
+
+
+  </script>
+</html>
