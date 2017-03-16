@@ -45,12 +45,31 @@ Cutable.tableOptions={
 
 })(jQuery);
 
+//保存表格结构的列表
+(function($){
+  //表格结构列表
+  var tableDivList={};
+
+  //根据 tableDivName获得表格结构
+  Cutable.getTableDiv=function(tableDivName){
+    if(tableDivName &&typeof tableDivName ==="string"){
+      return tableDivList[tableDivName];
+    }else{
+        console.error("获取表格结构时，有误");
+    }
+  }
+
+})(jQuery);
+
 //  初始化表格配置，生成表格tableId，推入模板，并删除掉自定义标签
 Cutable.prototype.initTable = function () {
   $("cutable").each(function(index,item){
     var $table=$(this);
     var options=$table.data("options");
     console.log(options);
+
+    //清除自定义标签
+    $table.remove();
 
   });
 
