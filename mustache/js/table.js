@@ -90,9 +90,9 @@ Cutable.prototype.initTable = function () {
     //初始化渲染数据的模板
     Cutable.prototype.initTemplate(options.tableId,options.columns);
     //监听事件，加载表格
-    Event.listen("xxx",function(){
-      Cutable.prototype.refreshTable(tableId);
-    })
+    // Event.listen("xxx",function(){
+    //   Cutable.prototype.refreshTable(tableId);
+    // })
   });
 
 };
