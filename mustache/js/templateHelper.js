@@ -53,7 +53,6 @@ var TemplateHelper=(function(){
        var template=makingTemplate[EngineName][type](options);
        //将生成的模板存入缓存列表中
        templateList[id]=template;
-       console.log(templateList);
     }else{
       console.error("请传入组件的唯一标识");
     }

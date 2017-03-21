@@ -129,12 +129,12 @@ Cutable.prototype.refreshTable=function(tableId){
   }
   var fd={
     rows:[
-      {deviceNumber:"12345",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
-      {deviceNumber:"12323245",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
-      {deviceNumber:"1233445",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
-      {deviceNumber:"1233445",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
-      {deviceNumber:"12354545",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
-      {deviceNumber:"123566545",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"}
+      {deviceNumber:"5656",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"23435",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"65768",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"09090",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"12334",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"67564",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"}
 
     ]
   }
