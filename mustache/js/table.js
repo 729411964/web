@@ -10,6 +10,7 @@ $(function(){
   Cutable.prototype.initTable(); //执行初始化方法
 
 
+
 })
 var Cutable=function(){}
 
@@ -93,23 +94,63 @@ Cutable.prototype.initTable = function () {
     // Event.listen("xxx",function(){
     //   Cutable.prototype.refreshTable(tableId);
     // })
+    Cutable.prototype.refreshTable(options.tableId);
   });
 
 };
 //通过配置生成模板
 Cutable.prototype.initTemplate=function(tableId,columns){
+  var $table=$("table[tableid='"+tableId+"']");
+  TemplateHelper.parseOptions("initTable",tableId,columns,"");
 
 }
 //生成表头
 Cutable.prototype.initHeader=function(tableId,columns){
   var $table=$("table[tableid='"+tableId+"']");
-  var s=Mustache.render("<tr>{{#.}}<th field='{{field}}'>{{title}}</th>{{/.}}</tr>",columns);
-  $table.find("thead").html(s);
+  var tableHeadId=tableId+"header";
+  var html="";
+  TemplateHelper.parseOptions("initHeader",tableHeadId,columns,"");
+  html=TemplateHelper.render(tableHeadId,columns);
+  $table.find("thead").html(html);
 
 }
 //刷新表格
 Cutable.prototype.refreshTable=function(tableId){
+  var sd={
+    rows:[
+      {deviceNumber:"12345",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654",operStaffNo:"73f",operTime:"grfe",remark:"beizhu"},
+      {deviceNumber:"12323245",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654",operStaffNo:"73f",operTime:"grfe",remark:"beizhu"},
+      {deviceNumber:"1233445",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654",operStaffNo:"73f",operTime:"grfe",remark:"beizhu"},
+      {deviceNumber:"1233445",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654",operStaffNo:"73f",operTime:"grfe",remark:"beizhu"},
+      {deviceNumber:"12354545",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654",operStaffNo:"73f",operTime:"grfe",remark:"beizhu"},
+      {deviceNumber:"123566545",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654",operStaffNo:"73f",operTime:"grfe",remark:"beizhu"}
 
+    ]
+  }
+  var fd={
+    rows:[
+      {deviceNumber:"12345",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"12323245",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"1233445",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"1233445",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"12354545",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"},
+      {deviceNumber:"123566545",storeName:"we",poolName:"chi",operType:"asd",batchNo:"654"}
+
+    ]
+  }
+  if(tableId=="3434"){
+    var $table=$("table[tableid='"+tableId+"']");
+    var html="";
+    html=TemplateHelper.render(tableId,sd);
+    $table.find("tbody").html(html);
+
+  }else{
+    var $table=$("table[tableid='"+tableId+"']");
+    var html="";
+    html=TemplateHelper.render(tableId,fd);
+    $table.find("tbody").html(html);
+
+  }
 }
 //提示语
 Cutable.prototype.getTips=function(tableId){
