@@ -1,0 +1,40 @@
+.content-item{
+  float: left;
+  width: 33%;
+  border: 1px solid #fff;
+  background: #e50017;
+  color: #fff;
+}
+.btn-item{
+  float: left;
+  width: 20%;
+  background: #333;
+  border: 1px solid #fff;
+  color: #fff;
+}
+.clearfix:after{
+  clear: both;
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+.cuview-title{
+  margin: 10px auto;
+  border-bottom: 1px solid #e50017;
+  text-align: center;
+
+}
+*{
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.cuview2-div .content-div .content-item {
+  background-color: #eee;
+  border: 1px solid #333;
+  color: #333;
+  text-align: center;
+}

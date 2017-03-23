@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>容器组件</title>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+    <script src="../js/mustache.min.js"></script>
+    <script src="../js/templateHelper.js"></script>
+    <script src="../js/cuview.js"></script>
+    <script src="../js/table.js"></script>
+    <link rel="stylesheet" href="../css/cuview.css">
+  </head>
+  <body>
+    <cuview data-options='{
+      "column":"3",
+      "cuviewDiv":"cuview2"
+    }'>
+      <cuinput class="wing">组件一</cuinput>
+      <cucheckbox class="wing" colspan="2">组件二</cucheckbox>
+      <curadio class="wing">组件三</curadio>
+      <cuzephyrus class="wing">组件四</cuzephyrus>
+      <cuwing class="wing">组件五</cuwing>
+      <cuinput class="wing">组件六</cuinput>
+      <cubtn class="wing">按钮一</cubtn>
+      <cubtn class="wing">按钮二</cubtn>
+    </cuview>
+    <div style="margin:50px 0">-------------------------------------我是分界线------------------------------------------------------我是分界线------------------------</div>
+    <cuview data-options='{
+      "column":"5",
+      "cuviewDiv":"cuview1"
+    }'>
+      <cuinput class="wing">组件一</cuinput>
+      <cucheckbox class="wing">组件二</cucheckbox>
+      <curadio class="wing" colspan="3">组件三</curadio>
+      <cuzephyrus class="wing">组件四</cuzephyrus>
+      <cuwing class="wing">组件五</cuwing>
+      <cuinput class="wing">组件六</cuinput>
+      <cubtn class="wing">按钮一</cubtn>
+      <cubtn class="wing">按钮二</cubtn>
+    </cuview>
+  </body>
+</html>
