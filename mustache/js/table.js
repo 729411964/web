@@ -14,6 +14,9 @@ $(function(){
 })
 var Cutable=function(){}
 
+//注册cutable组件
+ParsingHelper.registerComponent("cutable",Cutable);
+
 //表格的配置
 Cutable.tableOptions={
   id:"default",
@@ -76,9 +79,9 @@ Cutable.tableOptions={
 })(jQuery);
 
 //  初始化表格配置，生成表格tableId，推入模板，并删除掉自定义标签
-Cutable.prototype.initTable = function () {
-  $("cutable").each(function(index,item){
-    var $table=$(this);
+Cutable.prototype.initTag = function ($tag) {
+
+    var $table=$tag;
     var options=$table.data("options");
     var tableDiv=Cutable.getTableDiv(options["tableDiv"]);
     tableDiv=tableDiv.replace("wing",options.tableId);
@@ -95,7 +98,7 @@ Cutable.prototype.initTable = function () {
     //   Cutable.prototype.refreshTable(tableId);
     // })
     Cutable.prototype.refreshTable(options.tableId);
-  });
+
 
 };
 //通过配置生成模板

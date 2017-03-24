@@ -5,24 +5,23 @@
  * description:  容器组件，可提供网格化的功能
  */
 
- $(function(){
-    CuView.prototype.initCuView();
- })
-
  var CuView=function(){};
+
+//注册cuview组件
+ ParsingHelper.registerComponent("cuview",CuView);
 
  //保存容器结构的列表
  (function($){
    //容器结构列表
    var cuviewDivList={
-     cuview1:'    <div class="cuview1-div" component="wing">'+
+     cuview1:'    <div class="cuview1-div" componentid="wing">'+
               '      <div class="cuview-title">容器一</div>'+
               '      <div class="content-div clearfix"></div>'+
               '      <div class="btn-div clearfix"></div>'+
              '    </div>'
              ,
 
-     cuview2:'    <div class="cuview2-div" component="wing">'+
+     cuview2:'    <div class="cuview2-div" componentid="wing">'+
                       '      <div class="cuview-title">容器二</div>'+
                       '      <div class="btn-div clearfix"></div>'+
                       '      <div class="content-div clearfix"></div>'+
@@ -40,14 +39,13 @@
    }
 
  })(jQuery);
- CuView.prototype.initCuView=function(){
-   $("cuview").each(function(){
-     var $cuview=$(this);
+ CuView.prototype.initTag=function($tag){
+     var $cuview=$tag;
      var options=$cuview.data("options");
      var $cuviewDiv=$(CuView.getCuviewDiv(options["cuviewDiv"]));
      var column=1/options["column"]*100;
-     $(this).after($cuviewDiv);
-     var children=$(this).children();
+     $cuview.after($cuviewDiv);
+     var children=$cuview.children();
      children.each(function(){
        var tagName=$(this)[0].tagName;
        var colspan=$(this).attr("colspan");
@@ -62,6 +60,6 @@
          $(this).appendTo($cuviewDiv.find(".content-div")).wrap("<div class='content-item' style='width:"+column*colspan+"%'></div>");
        }
      })
-     $(this).remove();
-   })
+     $cuview.remove();
+
  }

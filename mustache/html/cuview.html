@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>容器组件</title>
     <script src="../js/jquery-1.10.1.min.js"></script>
+    <script src="../js/parsingHelper.js"></script>
     <script src="../js/mustache.min.js"></script>
     <script src="../js/templateHelper.js"></script>
     <script src="../js/cuview.js"></script>
@@ -21,6 +22,26 @@
       <cuzephyrus class="wing">组件四</cuzephyrus>
       <cuwing class="wing">组件五</cuwing>
       <cuinput class="wing">组件六</cuinput>
+      <cutable  colspan="3" data-options='{
+        "tableDiv":"table1",
+        "tableId":"3434",
+       "checkbox":true,
+       "idField":"deviceNumber",
+       "listenType":"xxx",
+       "operation":[{"field":"batchNo","triggerType":"select"}],
+        "columns":[
+        {"field":"deviceNumber","title":"业务号码"},
+        {"field":"storeName","title":"库"},
+        {"field":"poolName","title":"池"},
+        {"field":"operType","title":"操作类型"},
+        {"field":"batchNo","title":"操作批次"},
+        {"field":"operStaffNo","title":"操作员工"},
+        {"field":"operTime","title":"操作时间"},
+        {"field":"remark","title":"备注"}
+         ]}'>
+
+
+       </cutable>
       <cubtn class="wing">按钮一</cubtn>
       <cubtn class="wing">按钮二</cubtn>
     </cuview>
