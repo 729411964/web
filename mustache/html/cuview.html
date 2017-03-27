@@ -5,10 +5,13 @@
     <title>容器组件</title>
     <script src="../js/jquery-1.10.1.min.js"></script>
     <script src="../js/parsingHelper.js"></script>
+    <script src="../js/commonEvent.js"></script>
+    <script src="../js/bindEvent.js"></script>
     <script src="../js/mustache.min.js"></script>
     <script src="../js/templateHelper.js"></script>
     <script src="../js/cuview.js"></script>
     <script src="../js/table.js"></script>
+    <script src="../js/cubtn.js"></script>
     <link rel="stylesheet" href="../css/cuview.css">
   </head>
   <body>
@@ -42,8 +45,8 @@
 
 
        </cutable>
-      <cubtn class="wing">按钮一</cubtn>
-      <cubtn class="wing">按钮二</cubtn>
+      <cubtn class="wing" data-options='{"cubtnDiv":"1"}' bindcl="wing,even1">按钮一</cubtn>
+      <!-- <cubtn class="wing" data-options='{"cubtnDiv":"1"}' bindcl="button2">按钮二</cubtn> -->
     </cuview>
     <div style="margin:50px 0">-------------------------------------我是分界线------------------------------------------------------我是分界线------------------------</div>
     <cuview data-options='{
@@ -56,8 +59,17 @@
       <cuzephyrus class="wing">组件四</cuzephyrus>
       <cuwing class="wing">组件五</cuwing>
       <cuinput class="wing">组件六</cuinput>
-      <cubtn class="wing">按钮一</cubtn>
-      <cubtn class="wing">按钮二</cubtn>
     </cuview>
+    <script type="text/javascript">
+
+      (function(){
+        EventHandler.setHandler("wing",function(triggerName){
+          console.log($(this));
+          console.log(triggerName+" 自定义的事件函数");
+        })
+      })();
+
+    </script>
   </body>
+
 </html>

@@ -7,10 +7,6 @@
 
 $(function(){
 
-  Cutable.prototype.initTable(); //执行初始化方法
-
-
-
 })
 var Cutable=function(){}
 
