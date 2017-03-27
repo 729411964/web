@@ -27,12 +27,9 @@ var BindEvent=function(){};
   }
 })();
 
-BindEvent.prototype.bindEvent=function($dom,eventType,handler){
-
-}
 
 //获得绑定事件的列表
-BindEvent.prototype.setEvent=function($tag,$dom){
+BindEvent.prototype.bindEvent=function($tag,$dom){
   var attributes=$tag[0].attributes;
   var eventList={};
   for(var i in attributes){
@@ -54,6 +51,15 @@ BindEvent.prototype.setEvent=function($tag,$dom){
       //改变callHandler函数this的指向，确保回调函数中的this都为触发事件的元素
       EventHandler.callHandler.call(this,event[0],event[1]);
     })
+  }
+
+}
+
+BindEvent.prototype.setListener=function($tag){
+  var listenList=$tag.attr("listen");
+  listenList=JSON.parse(listenList);
+  for(var i in listenList){
+    Eventlistenr.listenEvent.call(this,i,listenList[i]);
   }
 
 }

@@ -54,7 +54,7 @@ var Cubtn=function(){};
    var $cubtnDiv=$(Cubtn.getCubtnDiv(options["cubtnDiv"]));
    $cubtnDiv.find(".cubtn").text($cubtn.text());
    $cubtn.after($cubtnDiv);
-   BindEvent.prototype.setEvent($cubtn,$cubtnDiv.find(".cubtn"));
+   BindEvent.prototype.bindEvent($cubtn,$cubtnDiv.find(".cubtn"));
    $cubtn.remove();
 
  }

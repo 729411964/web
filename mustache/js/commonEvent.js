@@ -5,6 +5,7 @@ var EventHandler=(function(){
     wing:function(triggerName){
       console.log($(this));
       console.log(triggerName);
+      Event.trigger(triggerName);
     }
 
   };

@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title>容器组件</title>
     <script src="../js/jquery-1.10.1.min.js"></script>
+    <script src="../js/Event.js"></script>
     <script src="../js/parsingHelper.js"></script>
     <script src="../js/commonEvent.js"></script>
+    <script src="../js/commonListen.js"></script>
     <script src="../js/bindEvent.js"></script>
     <script src="../js/mustache.min.js"></script>
     <script src="../js/templateHelper.js"></script>
@@ -25,7 +27,7 @@
       <cuzephyrus class="wing">组件四</cuzephyrus>
       <cuwing class="wing">组件五</cuwing>
       <cuinput class="wing">组件六</cuinput>
-      <cutable  colspan="3" data-options='{
+      <cutable  colspan="3" listen='{"even1":"listen1","event2":"linten2"}' data-options='{
         "tableDiv":"table1",
         "tableId":"3434",
        "checkbox":true,
@@ -62,10 +64,16 @@
     </cuview>
     <script type="text/javascript">
 
+      // (function(){
+      //   EventHandler.setHandler("wing",function(triggerName){
+      //     console.log($(this));
+      //     console.log(triggerName+" 自定义的事件函数");
+      //   })
+      // })();
       (function(){
-        EventHandler.setHandler("wing",function(triggerName){
+        Eventlistenr.setListenr("listen1",function(triggerName){
           console.log($(this));
-          console.log(triggerName+" 自定义的事件函数");
+          console.log("demaxiya");
         })
       })();
 
