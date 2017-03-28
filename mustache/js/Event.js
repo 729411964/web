@@ -8,6 +8,7 @@ var Event=(function(){
         clientList[key]=[];
       }
       if(typeof fn ==="function"){
+        fn.context=this;
         clientList[key].push(fn); //若fn是函数，则把fn推入消息缓存区clientList
       }else{
         console.log(fn);//若fn不是函数，不推入缓存区
@@ -22,7 +23,7 @@ var Event=(function(){
             return false;
           }
           for(var i=0,fn;fn=fns[i];i++){
-            fn.apply(this,arguments);//挨个执行消息缓存区中的事件处理
+            fn.apply(fn.context,arguments);//挨个执行消息缓存区中的事件处理
           }
 
 
@@ -37,4 +38,3 @@ var Event=(function(){
     }
 
 })();
-console.log(Event.listen.toString());

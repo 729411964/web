@@ -55,11 +55,11 @@ BindEvent.prototype.bindEvent=function($tag,$dom){
 
 }
 
-BindEvent.prototype.setListener=function($tag){
+BindEvent.prototype.setListener=function($tag,$dom){
   var listenList=$tag.attr("listen");
   listenList=JSON.parse(listenList);
   for(var i in listenList){
-    Eventlistenr.listenEvent.call(this,i,listenList[i]);
+    Eventlistenr.listenEvent.call($dom,i,listenList[i]);
   }
 
 }

@@ -80,11 +80,11 @@ Cutable.prototype.initTag = function ($tag) {
     var $table=$tag;
     var options=$table.data("options");
     var tableDiv=Cutable.getTableDiv(options["tableDiv"]);
-    tableDiv=tableDiv.replace("wing",options.tableId);
+    tableDiv=$(tableDiv.replace("wing",options.tableId));
     //将加载出来的模板插入页面中
     $table.after(tableDiv);
     //订阅事件
-    BindEvent.prototype.setListener($table);
+    BindEvent.prototype.setListener($table,tableDiv);
 
     //清除自定义标签
     $table.remove();

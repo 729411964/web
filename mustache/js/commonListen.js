@@ -9,12 +9,11 @@ var Eventlistenr=(function(){
 
   };
 
-  var listenEvent=function(eventName,handlerName){
-    //找到缓存的回调函数
+  var listenEvent=function(eventName,handlerName){    //找到缓存的回调函数
     var handler=listenList[handlerName];
     if(handler&& typeof handler ==="function"){
       //确保自定义的回调函数this指向触发事件的元素
-      Event.listen(eventName,handler);
+      Event.listen.call(this,eventName,handler);
 
     }else{
       console.error(handlerName+"回调函数未找到");
@@ -25,8 +24,6 @@ var Eventlistenr=(function(){
     if(typeof fn ==="function"){
       listenList[handlerName]=fn;
     }
-    console.log(listenList);
-
   }
   return {
     listenEvent:listenEvent,
