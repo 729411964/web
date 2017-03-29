@@ -15,17 +15,17 @@ var Cubtn=function(){};
    //cubtn组件结构列表
    var cubtnDivList={
      default:'    <div class="cubtn-div" componentid="wing">'+
-              '      <button class="cubtn"></button>'+
+              '      <button class="cubtn" hasBind="true"></button>'+
              '    </div>'
              ,
 
      cubtn1:'    <div class="cubtn1-div" componentid="wing">'+
-              '      <button class="cubtn"></button>'+
+              '      <button class="cubtn" hasBind="true"></button>'+
              '    </div>'
              ,
 
      cubtn2:'    <div class="cubtn2-div" componentid="wing">'+
-                      '      <button class="cubtn"></button>'+
+                      '      <button class="cubtn" hasBind="true"></button>'+
                      '    </div>'
    };
 
@@ -55,7 +55,6 @@ var Cubtn=function(){};
    $cubtnDiv.find(".cubtn").text($cubtn.text());
    $cubtn.after($cubtnDiv);
    Macro.macroCommand($cubtn,$cubtnDiv);
-   BindEvent.bindEvent($cubtn,$cubtnDiv.find(".cubtn"));
    $cubtn.remove();
 
  }

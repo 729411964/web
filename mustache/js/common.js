@@ -21,12 +21,15 @@ $(function(){
  * Time: 2017.3.29
  * description: 宏命令集合，用于执行一系列的操作
  */
-var Macro=(function($tag,$dom){
+var Macro=(function(){
   var macroCommand=function($tag,$dom){
-    console.log("sddsds");
+    //通过是否含有hasbind属性获得要绑定事件的具体Dom
+    var $bindDom=$dom.find($('[hasbind]'));
     //为组件设置唯一的id
     //为组件绑定事件
+     BindEvent.bindEvent($tag,$bindDom);
     //为组件订阅事件
+    BindEvent.setListener($tag,$dom);
     //添加校验规则。
   };
   return {
@@ -219,6 +222,10 @@ var BindEvent=(function(){
   };
   var setListener=function($tag,$dom){
     var listenList=$tag.attr("listen");
+    if(!listenList){
+      //若未配置订阅者，则回退
+      return false;
+    }
     listenList=JSON.parse(listenList);
     for(var i in listenList){
       Eventlistenr.listenEvent.call($dom,i,listenList[i]);

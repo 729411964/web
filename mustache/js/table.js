@@ -83,9 +83,8 @@ Cutable.prototype.initTag = function ($tag) {
     tableDiv=$(tableDiv.replace("wing",options.tableId));
     //将加载出来的模板插入页面中
     $table.after(tableDiv);
-    //订阅事件
-    BindEvent.setListener($table,tableDiv);
-
+    //宏命令
+    Macro.macroCommand($table,tableDiv);
     //清除自定义标签
     $table.remove();
     //初始化表头
