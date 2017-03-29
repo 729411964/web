@@ -84,7 +84,7 @@ Cutable.prototype.initTag = function ($tag) {
     //将加载出来的模板插入页面中
     $table.after(tableDiv);
     //订阅事件
-    BindEvent.prototype.setListener($table,tableDiv);
+    BindEvent.setListener($table,tableDiv);
 
     //清除自定义标签
     $table.remove();
