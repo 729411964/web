@@ -54,6 +54,7 @@ var Cubtn=function(){};
    var $cubtnDiv=$(Cubtn.getCubtnDiv(options["cubtnDiv"]));
    $cubtnDiv.find(".cubtn").text($cubtn.text());
    $cubtn.after($cubtnDiv);
+   Macro.macroCommand($cubtn,$cubtnDiv);
    BindEvent.bindEvent($cubtn,$cubtnDiv.find(".cubtn"));
    $cubtn.remove();
 
