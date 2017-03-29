@@ -5,19 +5,25 @@
  * description:  公共JS,用来存放公共模块的地方，由于未使用那些打包工具，所以只能手动写到一块。
  */
 
+   $(function(){
+     var tagArray=ParsingHelper.getTag();
+     var tagNames=tagArray.join(",");
+     var $tag=$(tagNames);
+     $tag.each(function(){
+       //解析具体的组件
+       ParsingHelper.initTag($(this)[0].tagName,$(this));
+     })
+   })
 /*
  * parsingHelper 1.0.0
  * author： niulei
  * Time: 2017.3.23
  * description:  公共组件，解析模板
  */
-  var ParsingHelper=function(){};
-
- //立即执行函数，用来保存注册的组件
-  (function(){
+  var ParsingHelper=(function(){
     // 缓存已注册的组件
     var componentList={};
-    ParsingHelper.registerComponent=function(componentName,fn){
+    var registerComponent=function(componentName,fn){
       var fdStart = componentName?componentName.indexOf("cu"):"-1";
       if(fdStart == 0){
         //若是以cu开头，则通过
@@ -30,8 +36,8 @@
         return false;
       }
 
-    }
-    ParsingHelper.getTag=function(){
+    };
+    var getTag=function(){
       var tagArray=[];
       for(var i in componentList){
         if(componentList.hasOwnProperty(i)){
@@ -39,24 +45,21 @@
         }
       }
       return tagArray;
-    }
-    ParsingHelper.initTag=function(tagName,$tag){
+    };
+    var initTag=function(tagName,$tag){
       if(tagName && typeof tagName==="string"){
         tagName=tagName.toLowerCase();
         componentList[tagName]["prototype"]["initTag"]($tag);
       }
+    };
+    return {
+      registerComponent:registerComponent,
+      getTag:getTag,
+      initTag:initTag
     }
-  })()
+  })();
 
-  $(function(){
-    var tagArray=ParsingHelper.getTag();
-    var tagNames=tagArray.join(",");
-    var $tag=$(tagNames);
-    $tag.each(function(){
-      //解析具体的组件
-      ParsingHelper.initTag($(this)[0].tagName,$(this));
-    })
-  })
+
 
 /*
  * TemplateHelper 1.0.0
@@ -139,7 +142,7 @@
    }
 
  })();
- /*!
+ /*
   * bindEvent 1.0.0
   * author： niulei
   * Time: 2017.3.24
@@ -181,7 +184,7 @@
       }
       attributes=null; //由于事件绑定会产生闭包，所以在此处释放内存空间
       for(var name in eventList){
-        $dom.attr(name,eventList[name]);
+        $dom.attr(getEventName(name),eventList[name]);
         (function(){
           var eventType=eventList[name].split(",");
           $dom.on(getEventName(name),function(event){
@@ -207,3 +210,49 @@
     }
 
   })();
+  /*
+   * Event 1.0.0
+   * author： niulei
+   * Time: 2017.3.24
+   * description: 事件发布订阅中心，用于发布订阅事件
+   */
+   var Event=(function(){
+     var clientList={},
+       listen,
+       trigger,
+       remove;
+       var listen=function(key,fn){ //订阅事件的函数
+         if(!clientList[key]){
+           clientList[key]=[];
+         }
+         if(typeof fn ==="function"){
+           fn.context=this;
+           clientList[key].push(fn); //若fn是函数，则把fn推入消息缓存区clientList
+         }else{
+           console.log(fn);//若fn不是函数，不推入缓存区
+         }
+
+       };
+       var trigger=function(){
+         var key=Array.prototype.shift.call(arguments),//获得参数中最前面的key类型
+             fns=clientList[key];
+             if(!fns ||fns.length==0){
+               console.log("没有此"+key+"的订阅者");
+               return false;
+             }
+             for(var i=0,fn;fn=fns[i];i++){
+               fn.apply(fn.context,arguments);//挨个执行消息缓存区中的事件处理
+             }
+
+
+       };
+       var remove=function(){
+
+       };
+       return {
+         listen:listen,
+         trigger:trigger,
+         remove:remove
+       }
+
+   })();
