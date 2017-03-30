@@ -14,17 +14,17 @@ var Cubtn=function(){};
  (function(){
    //cubtn组件结构列表
    var cubtnDivList={
-     default:'    <div class="cubtn-div" componentid="wing">'+
+     default:'    <div class="cubtn-div">'+
               '      <button class="cubtn" hasBind="true"></button>'+
              '    </div>'
              ,
 
-     cubtn1:'    <div class="cubtn1-div" componentid="wing">'+
+     cubtn1:'    <div class="cubtn1-div">'+
               '      <button class="cubtn" hasBind="true"></button>'+
              '    </div>'
              ,
 
-     cubtn2:'    <div class="cubtn2-div" componentid="wing">'+
+     cubtn2:'    <div class="cubtn2-div">'+
                       '      <button class="cubtn" hasBind="true"></button>'+
                      '    </div>'
    };
@@ -46,15 +46,25 @@ var Cubtn=function(){};
    }
 
  })();
+(function(){
+  var options={
+    domDiv:"default",
+    id:"cubtn"
 
+  };
+  Cubtn.getOptions=function(){
+    return $.extend({},options);
+  }
+})()
  Cubtn.prototype.initTag=function($tag){
    var $cubtn=$tag;
-   //获得组件绑定事件的列表
-   var options=$cubtn.data("options");
-   var $cubtnDiv=$(Cubtn.getCubtnDiv(options["cubtnDiv"]));
+   //获得具体的配置项
+   var options=$.extend(Cubtn.getOptions(),$cubtn.data("options"));
+   var $cubtnDiv=$(Cubtn.getCubtnDiv(options["domDiv"]));
    $cubtnDiv.find(".cubtn").text($cubtn.text());
    $cubtn.after($cubtnDiv);
-   Macro.macroCommand($cubtn,$cubtnDiv);
+   //处理公共部位的宏命令
+   Macro.macroCommand($cubtn,$cubtnDiv,options);
    $cubtn.remove();
 
  }

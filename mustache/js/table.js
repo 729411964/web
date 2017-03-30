@@ -84,7 +84,7 @@ Cutable.prototype.initTag = function ($tag) {
     //将加载出来的模板插入页面中
     $table.after(tableDiv);
     //宏命令
-    Macro.macroCommand($table,tableDiv);
+    Macro.macroCommand($table,tableDiv,options);
     //清除自定义标签
     $table.remove();
     //初始化表头

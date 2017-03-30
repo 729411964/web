@@ -22,10 +22,15 @@ $(function(){
  * description: 宏命令集合，用于执行一系列的操作
  */
 var Macro=(function(){
-  var macroCommand=function($tag,$dom){
+  var macroCommand=function($tag,$dom,options){
+    //将配置绑定到Dom上
+    $dom.data("options",options);
     //通过是否含有hasbind属性获得要绑定事件的具体Dom
     var $bindDom=$dom.find($('[hasbind]'));
     //为组件设置唯一的id
+    $dom.attr("cid",options.id);
+
+    //将配置文件绑定到组件上
     //为组件绑定事件
      BindEvent.bindEvent($tag,$bindDom);
     //为组件订阅事件
