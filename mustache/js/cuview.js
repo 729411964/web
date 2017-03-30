@@ -14,12 +14,12 @@
  (function($){
    //容器结构列表
    var cuviewDivList={
-     default:'    <div class="cuview1-div" componentid="wing">'+
+     default:'    <div class="cuview1-div clearfix">'+
 
              '    </div>'
              ,
 
-     cuview1:'    <div class="cuview2-div" componentid="wing">'+
+     cuview1:'    <div class="cuview2-div clearfix">'+
 
                      '    </div>'
    };
