@@ -213,7 +213,7 @@ var BindEvent=(function(){
     }
     attributes=null; //由于事件绑定会产生闭包，所以在此处释放内存空间
     for(var name in eventList){
-      $dom.attr(getEventName(name),eventList[name]);
+      $dom.attr(name,eventList[name]);
       (function(){
         var eventType=eventList[name].split(",");
         $dom.on(getEventName(name),function(event){
