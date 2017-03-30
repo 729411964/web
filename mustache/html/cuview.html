@@ -14,11 +14,12 @@
     <link rel="stylesheet" href="../css/cuview.css">
   </head>
   <body>
-    <cuview data-options='{
-      "column":"3",
-      "cuviewDiv":"cuview2"
-    }'>
-      <cuinput class="wing">组件一</cuinput>
+    <cuview data-options='{  "column":"3","domDiv":"cuview2","id":"233"}'>
+      <cuinput>组件一</cuinput>
+      <cuview data-options='{"column":"2","domDiv":"cuview1"}'>
+        <cuinput class="wing">组件二一</cuinput>
+        <cucheckbox class="wing">组件三二</cucheckbox>
+      </cuview>
       <cucheckbox class="wing" colspan="2">组件二</cucheckbox>
       <curadio class="wing">组件三</curadio>
       <cuzephyrus class="wing">组件四</cuzephyrus>
@@ -27,38 +28,17 @@
       <cutable  colspan="3" listen='{"even1":"listen1","event2":"linten2"}' data-options='{
         "tableDiv":"table1",
         "tableId":"3434",
-       "checkbox":true,
        "idField":"deviceNumber",
-       "listenType":"xxx",
        "operation":[{"field":"batchNo","triggerType":"select"}],
         "columns":[
         {"field":"deviceNumber","title":"业务号码"},
-        {"field":"storeName","title":"库"},
-        {"field":"poolName","title":"池"},
-        {"field":"operType","title":"操作类型"},
-        {"field":"batchNo","title":"操作批次"},
-        {"field":"operStaffNo","title":"操作员工"},
-        {"field":"operTime","title":"操作时间"},
-        {"field":"remark","title":"备注"}
+        {"field":"storeName","title":"库"}
          ]}'>
-
-
        </cutable>
       <cubtn class="wing" data-options='{"domDiv":"1","id":"btn1"}' bindcl="wing,even1" bindbl="wing3,event2">按钮一</cubtn>
       <!-- <cubtn class="wing" data-options='{"cubtnDiv":"1"}' bindcl="button2">按钮二</cubtn> -->
     </cuview>
-    <div style="margin:50px 0">-------------------------------------我是分界线------------------------------------------------------我是分界线------------------------</div>
-    <cuview data-options='{
-      "column":"5",
-      "cuviewDiv":"cuview1"
-    }'>
-      <cuinput class="wing">组件一</cuinput>
-      <cucheckbox class="wing">组件二</cucheckbox>
-      <curadio class="wing" colspan="3">组件三</curadio>
-      <cuzephyrus class="wing">组件四</cuzephyrus>
-      <cuwing class="wing">组件五</cuwing>
-      <cuinput class="wing">组件六</cuinput>
-    </cuview>
+
     <script type="text/javascript">
 
       // (function(){

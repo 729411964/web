@@ -14,52 +14,66 @@
  (function($){
    //容器结构列表
    var cuviewDivList={
-     cuview1:'    <div class="cuview1-div" componentid="wing">'+
-              '      <div class="cuview-title">容器一</div>'+
-              '      <div class="content-div clearfix"></div>'+
-              '      <div class="btn-div clearfix"></div>'+
+     default:'    <div class="cuview1-div" componentid="wing">'+
+
              '    </div>'
              ,
 
-     cuview2:'    <div class="cuview2-div" componentid="wing">'+
-                      '      <div class="cuview-title">容器二</div>'+
-                      '      <div class="btn-div clearfix"></div>'+
-                      '      <div class="content-div clearfix"></div>'+
+     cuview1:'    <div class="cuview2-div" componentid="wing">'+
+
                      '    </div>'
    };
 
    //根据 cuviewDivName获得容器结构
    CuView.getCuviewDiv=function(cuViewDivName){
      if(cuViewDivName &&typeof cuViewDivName ==="string"){ //此处校验可以写为公共方法
-       return cuviewDivList[cuViewDivName];
+       var componentDiv=cuviewDivList[cuViewDivName];
+       if(componentDiv){
+         return componentDiv;
+       }else{
+         console.error("未找到"+cuViewDivName+"组件结构，使用了默认结构");
+         return cuviewDivList["default"];
+       }
+       return
      }else{
-         console.error("获取容器结构时，有误");
-         return cuviewDivList["cuview1"];
+         return cuviewDivList["default"];
      }
    }
 
  })(jQuery);
+ (function(){
+   var options={
+     domDiv:"default",
+     id:"cuview"
+
+   };
+   CuView.getOptions=function(){
+     return $.extend({},options);
+   }
+ })()
  CuView.prototype.initTag=function($tag){
      var $cuview=$tag;
-     var options=$cuview.data("options");
-     var $cuviewDiv=$(CuView.getCuviewDiv(options["cuviewDiv"]));
-     var column=1/options["column"]*100;
+     var options=$.extend(CuView.getOptions(),$cuview.data("options"));
+     var $cuviewDiv=$(CuView.getCuviewDiv(options["domDiv"]));
      $cuview.after($cuviewDiv);
-     var children=$cuview.children();
-     children.each(function(){
-       var tagName=$(this)[0].tagName;
-       var colspan=$(this).attr("colspan");
-       if(!colspan){
-         colspan=1;
-       }
-
-       if(tagName.toLowerCase()=="cubtn"){
-         $(this).appendTo($cuviewDiv.find(".btn-div")).wrap("<div class='btn-item'></div>");
-
-       }else{
-         $(this).appendTo($cuviewDiv.find(".content-div")).wrap("<div class='content-item' style='width:"+column*colspan+"%'></div>");
-       }
-     })
+     //处理公共部位的宏命令
+     Macro.macroCommand($cuview,$cuviewDiv,options);
+     //处理列合并的函数
+     CuView.prototype.colspan($cuview,$cuviewDiv,options);
+     //移除自定义标签
      $cuview.remove();
 
+ }
+ CuView.prototype.colspan=function($cuview,$cuviewDiv,options){
+   var column=1/options["column"]*100;
+   var children=$cuview.children();
+   children.each(function(){
+     var tagName=$(this)[0].tagName;
+     var colspan=$(this).attr("colspan");
+     if(!colspan){
+       colspan=1;
+     }
+    $(this).appendTo($cuviewDiv).wrap("<div class='content-item' style='width:"+column*colspan+"%'></div>");
+
+   })
  }
