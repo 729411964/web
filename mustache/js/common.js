@@ -29,7 +29,8 @@ var Macro=(function(){
     var $bindDom=$dom.find($('[hasbind]'));
     //为组件设置唯一的id
     $dom.attr("cid",options.id);
-
+    //将自定义标签的样式放在Dom上。
+    $dom.addClass($tag.attr("class"));
     //将配置文件绑定到组件上
     //为组件绑定事件
      BindEvent.bindEvent($tag,$bindDom);
