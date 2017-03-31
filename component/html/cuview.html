@@ -11,11 +11,12 @@
     <script src="../js/cuview.js"></script>
     <script src="../js/table.js"></script>
     <script src="../js/cubtn.js"></script>
+    <script src="../js/cuinput.js"></script>
     <link rel="stylesheet" href="../css/cuview.css">
   </head>
   <body>
     <cuview class="as de" data-options='{  "column":"3","domDiv":"cuview2","id":"233"}'>
-      <cuinput>组件一</cuinput>
+      <cuinput data-options='{"regExp":"required,number,xxxxx","regTip":"输入错误,输入错误2,输入错误3"}'>组件一</cuinput>
       <cuview data-options='{"column":"2","domDiv":"cuview1"}'>
         <cuinput class="wing">组件二一</cuinput>
         <cucheckbox class="wing">组件三二</cucheckbox>

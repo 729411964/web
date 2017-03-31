@@ -25,7 +25,8 @@ var Macro=(function(){
     $dom.attr("cid",options.id);
     //将自定义标签的样式放在Dom上。
     $dom.addClass($tag.attr("class"));
-    //将配置文件绑定到组件上
+    //若有检验配置，则增加校验
+    
     //为组件绑定事件
      BindEvent.bindEvent($tag,$bindDom);
     //为组件订阅事件
@@ -303,3 +304,41 @@ var Event=(function(){
     }
 
 })();
+/*
+ * CheckHelper 1.0.0
+ * author： niulei
+ * Time: 2017.3.31
+ * description: 校验模块，此模块通过正则表达式来对输入进行校验。
+ */
+ var CheckHelper=(function(){
+   var checkList={
+     //校验规则列表
+     required:function(){
+       //是否为必输项
+
+     },
+     isNumber:function(){
+       //是否为多少位的数字
+
+     },
+     isMail:function(){
+       //是否为邮箱
+
+     },
+     checkRegExp:function(){
+       //匹配正则
+
+     }
+   };
+   var bindCheck=function(){
+     //绑定校验规则
+   };
+   var checkForm=function(){
+     //校验表单
+   };
+   return {
+     bindCheck:bindCheck,
+     checkForm:checkForm
+   }
+
+ })();
