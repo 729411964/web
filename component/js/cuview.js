@@ -13,7 +13,7 @@
  //保存容器结构的列表
  (function($){
    //容器结构列表
-   var cuviewDivList={
+   var domDivList={
      default:'    <div class="cuview1-div clearfix">'+
 
              '    </div>'
@@ -25,18 +25,18 @@
    };
 
    //根据 cuviewDivName获得容器结构
-   CuView.getCuviewDiv=function(cuViewDivName){
-     if(cuViewDivName &&typeof cuViewDivName ==="string"){ //此处校验可以写为公共方法
-       var componentDiv=cuviewDivList[cuViewDivName];
+   CuView.getdomDiv=function(domDivName){
+     if(domDivName &&typeof domDivName ==="string"){ //此处校验可以写为公共方法
+       var componentDiv=domDivList[domDivName];
        if(componentDiv){
          return componentDiv;
        }else{
-         console.error("未找到"+cuViewDivName+"组件结构，使用了默认结构");
-         return cuviewDivList["default"];
+         console.error("未找到"+domDivName+"组件结构，使用了默认结构");
+         return domDivList["default"];
        }
        return
      }else{
-         return cuviewDivList["default"];
+         return domDivList["default"];
      }
    }
 
@@ -52,16 +52,16 @@
    }
  })()
  CuView.prototype.initTag=function($tag){
-     var $cuview=$tag;
-     var options=$.extend(CuView.getOptions(),$cuview.data("options"));
-     var $cuviewDiv=$(CuView.getCuviewDiv(options["domDiv"]));
-     $cuview.after($cuviewDiv);
+     var options=$.extend(CuView.getOptions(),$tag.data("options"));
+     var $dom=$(CuView.getdomDiv(options["domDiv"]));
+     $tag.after($dom);
      //处理公共部位的宏命令
-     Macro.macroCommand($cuview,$cuviewDiv,options);
+     Macro.macroCommand($tag,$dom,options);
      //处理列合并的函数
-     CuView.prototype.colspan($cuview,$cuviewDiv,options);
+     CuView.prototype.colspan($tag,$dom,options);
      //移除自定义标签
-     $cuview.remove();
+     $tag.remove();
+     return $dom;
 
  }
  CuView.prototype.colspan=function($cuview,$cuviewDiv,options){

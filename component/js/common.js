@@ -15,7 +15,7 @@ $(function(){
  * Time: 2017.3.29
  * description: 宏命令集合，用于执行一系列的操作
  */
-var Macro=(function(){
+var Macro = (function(){
   var macroCommand=function($tag,$dom,options){
     //将配置绑定到Dom上
     $dom.data("options",options);
@@ -26,7 +26,7 @@ var Macro=(function(){
     //将自定义标签的样式放在Dom上。
     $dom.addClass($tag.attr("class"));
     //若有检验配置，则增加校验
-    
+    CheckHelper.bindCheck($dom,options);
     //为组件绑定事件
      BindEvent.bindEvent($tag,$bindDom);
     //为组件订阅事件
@@ -74,16 +74,17 @@ var ParsingHelper=(function(){
     if(tagName && typeof tagName==="string"){
       tagName=tagName.toLowerCase();
       if(componentList[tagName]){
-        componentList[tagName]["prototype"]["initTag"]($tag);
-
+        return componentList[tagName]["prototype"]["initTag"]($tag);
+      }else{
+        return $tag;
       }
     }
   };
   //递归解析标签
-  var recursivlyParse=function($dom,tagNames){
-    //获得标签的子节点。
-    var tagArray=$dom.find(tagNames);
-    initTag($dom[0].tagName,$dom);
+  var recursivlyParse=function($tag,tagNames){
+    //获得解析后的Dom节点
+    var $dom=initTag($tag[0].tagName,$tag);
+    var tagArray=$dom.children();
     tagArray.each(function(index,item){
       //解析具体的组件
       recursivlyParse($(this),tagNames);
@@ -93,7 +94,7 @@ var ParsingHelper=(function(){
     var tagArray=getTag();
     var tagNames=tagArray.join(",");
     //递归解析标签
-    recursivlyParse($("html"),tagNames);
+    recursivlyParse($("body"),tagNames);
 
   }
   return {
@@ -330,8 +331,19 @@ var Event=(function(){
 
      }
    };
-   var bindCheck=function(){
+   //回调函数
+   var checkHandler=function(){
+     var $this=$(this);
+     var regExp=$this.data("options").split(",");
+     
+   };
+   var bindCheck=function($dom,options){
      //绑定校验规则
+     if(!options.regExp){
+       //若未配置校验，则返回
+       return false;
+     }
+     $dom.on("keyup",checkHandler);
    };
    var checkForm=function(){
      //校验表单

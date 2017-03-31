@@ -66,5 +66,6 @@ var Cubtn=function(){};
    //处理公共部位的宏命令
    Macro.macroCommand($tag,$dom,options);
    $tag.remove();
+   return $dom;
 
  }
