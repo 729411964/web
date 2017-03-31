@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>表格组件</title>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+    <script src="../js/mustache.min.js"></script>
+    <script src="../js/templateHelper.js"></script>
+    <script src="../js/table.js"></script>
+  </head>
+  <body>
+    <!-- 替换后  此标签会消失，因此，要确定配置好表格后删除掉此标签 -->
+    <cutable data-options='{
+      "tableDiv":"table1",
+      "tableId":"3434",
+     "checkbox":true,
+     "idField":"deviceNumber",
+     "listenType":"xxx",
+     "operation":[{"field":"batchNo","triggerType":"select"}],
+      "columns":[
+      {"field":"deviceNumber","title":"业务号码"},
+      {"field":"storeName","title":"库"},
+      {"field":"poolName","title":"池"},
+      {"field":"operType","title":"操作类型"},
+      {"field":"batchNo","title":"操作批次"},
+      {"field":"operStaffNo","title":"操作员工"},
+      {"field":"operTime","title":"操作时间"},
+      {"field":"remark","title":"备注"}
+       ]}'>
+       
+
+     </cutable>
+    <div class="one">----------------------------------------------------------------------</div>
+    <cutable data-options='{
+      "tableDiv":"table2",
+      "tableId":"5454",
+     "checkbox":true,
+     "idField":"deviceNumber",
+     "listenType":"xxx",
+     "operation":[{"field":"batchNo","triggerType":"select"}],
+      "columns":[
+      {"field":"deviceNumber","title":"一棵树"},
+      {"field":"storeName","title":"两棵树"},
+      {"field":"poolName","title":"三棵树"},
+      {"field":"operType","title":"四棵树"},
+      {"field":"batchNo","title":"五棵树"}
+       ]}'>
+     </cutable>
+  </body>
+</html>
