@@ -6,13 +6,7 @@
  */
 
 $(function(){
-  var tagArray=ParsingHelper.getTag();
-  var tagNames=tagArray.join(",");
-  var $tag=$(tagNames);
-  $tag.each(function(){
-    //解析具体的组件
-    ParsingHelper.initTag($(this)[0].tagName,$(this));
-  })
+  ParsingHelper.parsingTag();
 })
 
 /*
@@ -78,13 +72,34 @@ var ParsingHelper=(function(){
   var initTag=function(tagName,$tag){
     if(tagName && typeof tagName==="string"){
       tagName=tagName.toLowerCase();
-      componentList[tagName]["prototype"]["initTag"]($tag);
+      if(componentList[tagName]){
+        componentList[tagName]["prototype"]["initTag"]($tag);
+
+      }
     }
   };
+  //递归解析标签
+  var recursivlyParse=function($dom,tagNames){
+    //获得标签的子节点。
+    var tagArray=$dom.find(tagNames);
+    initTag($dom[0].tagName,$dom);
+    tagArray.each(function(index,item){
+      //解析具体的组件
+      recursivlyParse($(this),tagNames);
+    })
+  }
+  var parsingTag=function(){
+    var tagArray=getTag();
+    var tagNames=tagArray.join(",");
+    //递归解析标签
+    recursivlyParse($("html"),tagNames);
+
+  }
   return {
     registerComponent:registerComponent,
     getTag:getTag,
-    initTag:initTag
+    initTag:initTag,
+    parsingTag:parsingTag
   }
 })();
 
