@@ -311,46 +311,92 @@ var Event=(function(){
  * Time: 2017.3.31
  * description: 校验模块，此模块通过正则表达式来对输入进行校验。
  */
- var CheckHelper=(function(){
-   var checkList={
+ var CheckHelper = (function(){
+   var regExpList={
+     number:"^[0-9]*$",
+     lowerLetter:"^[a-z]*$"
+   }
+   var checkList = {
      //校验规则列表
-     required:function(){
+     required:function($dom,regTip){
        //是否为必输项
-
+       var str=$.trim($dom.val());
+       if(!str){
+         console.log(regTip==="default"?"必输项":regTip);
+       }
      },
-     isNumber:function(){
+     init:function($dom,regTip){
        //是否为多少位的数字
+       var str=$.trim($dom.val());;
+       var regExp=new RegExp("^[0-9]*$");
+       var result=regExp.test(str);
+       if(!result){
+         console.log(regTip==="default"?"请输入正整数":regTip);
+       }
 
      },
-     isMail:function(){
+     mail:function(){
        //是否为邮箱
-
-     },
-     checkRegExp:function(){
-       //匹配正则
 
      }
    };
+   var checkRegExp=function($dom,regExp,regTip){
+     //匹配正则
+     var str=$.trim($dom.val());
+     var regExp=new RegExp(regExpList[regExp]?regExpList[regExp]:regExp);
+     var result=regExp.test(str);
+     if(!result){
+       console.log(regTip==="default"?"输入不合法":regTip);
+     }
+
+   }
+   //校验处理函数
+   var triggerChecking=function($dom,regExps){
+     for(var item in regExps){
+       var hanler=checkList[item];
+       hanler ? hanler($dom,regExps[item]):checkRegExp($dom,item,regExps[item]);
+
+     }
+
+   }
    //回调函数
-   var checkHandler=function(){
-     var $this=$(this);
-     var regExp=$this.data("options").split(",");
-     
+   var checkHandler = function(){
+     var $this = $(this);
+     var options = $this.data("options") || {};
+     //获得校验类型
+     var regExp = options["regExp"]?options["regExp"].split(","):[];
+     //获得校验提示
+     var regTip = options["regTip"]?options["regTip"].split(","):[];
+     var regExps={};
+     for(var i=0, ln=regExp.length;i<ln;i++){
+       regExps[regExp[i]]=regTip[i]||"default";
+     }
+     triggerChecking($this,regExps);
    };
-   var bindCheck=function($dom,options){
+   var bindCheck = function($dom,options){
+     var $dom=$dom.find("input,textarea");
      //绑定校验规则
      if(!options.regExp){
        //若未配置校验，则返回
        return false;
      }
+     $dom.data("options",options);
      $dom.on("keyup",checkHandler);
    };
-   var checkForm=function(){
+   var checkForm = function(){
      //校验表单
    };
+   var addHandler=function(){
+     //增加校验函数
+
+   }
+   var addRegExp=function(){
+     //增加校验正则表达式
+   }
    return {
      bindCheck:bindCheck,
-     checkForm:checkForm
+     checkForm:checkForm,
+     addHandler:addHandler
    }
 
  })();
