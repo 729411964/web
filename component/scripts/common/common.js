@@ -567,6 +567,7 @@ var CheckHelper = (function () {
         }
         var $html=$(html);
         $html.text(regTip);
+        $dom.parent().css("position","relative");
         $dom.after($html);
         $dom.data("isinvalid",true);
       }
