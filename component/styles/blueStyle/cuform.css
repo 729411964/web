@@ -1,0 +1,27 @@
+/*
+ * cuform 1.0.0
+ * author： niulei
+ * Time: 2017.4.1
+ * description: 视图容器样式
+ */
+.cuform{
+  border-top: 2px solid #1a80d4;
+  border-left: 1px solid #ededed;
+  border-right: 1px solid #ededed;
+  background-color: #fbfbfb;
+  font-size: 14px;
+  color:#333;
+}
+.cuform-head{
+  color: #000;
+  font-size: 14px;
+  text-align: left;
+  line-height: 14px;
+  border-left: 2px solid #1a80d4;
+  margin: 6px;
+  padding-left: 10px;
+  font-weight: bold;
+}
+.cuform-div{
+  margin: 10px auto;
+}

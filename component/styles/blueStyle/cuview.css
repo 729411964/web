@@ -1,0 +1,18 @@
+/*
+ * cuview 1.0.0
+ * author： niulei
+ * Time: 2017.4.5
+ * description: 容器样式
+ */
+.content-item{
+  float: left;
+  width: 33%;
+  color: #333;
+  padding: 20px 10px;
+}
+.border-bottom .content-item{
+  border-bottom: 1px solid #ededed;
+}
+.text-left .content-item{
+  text-align: right;
+}

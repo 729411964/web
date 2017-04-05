@@ -1,0 +1,18 @@
+/*
+ * check-style 1.0.0
+ * author： niulei
+ * Time: 2017.4.5
+ * description: 校验样式
+ */
+
+ label.required:before {
+     margin-right: 2px;
+     content: "*";
+     color: #ff0000;
+ }
+ .validate-color{
+   border: 1px solid #fc5043 !important;
+ }
+ .validate-color:focus{
+   border: 1px solid #fc5043 !important;
+ }

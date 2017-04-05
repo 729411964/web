@@ -1,0 +1,20 @@
+@charset "utf-8";
+.cuinput-div > label{
+    color:#4d4d4d;
+    font-size: 14px;
+}
+
+.cuinput-div > input{
+    height: 26px;
+    border: 1px solid #ddd;
+    color:#666;
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 14px;
+    border-radius: 4px;
+}
+
+.cuinput-div > input:focus{
+    border: 1px solid #4ac9ff;
+}

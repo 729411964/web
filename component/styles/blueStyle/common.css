@@ -1,0 +1,62 @@
+/*
+ * common 1.0.0
+ * author： niulei
+ * Time: 2017.4.1
+ * description: 公共样式，目的为格式化浏览器样式，不要添加无用的组件样式。
+ */
+
+@charset "UTF-8";
+html {
+    height: 100%;
+}
+
+body {
+    box-sizing: border-box;
+    font-size: 12px;
+    line-height: 1;
+    font-family: Arial, "微软雅黑";
+    color: #666;
+    overflow-y: scroll;
+}
+
+/*公共样式*/
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.hide{
+    display: none;
+}
+
+/*重置样式*/
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+input[type="button"], input[type="submit"], button {
+    border: 0;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*输入框提示与颜色*/
+input::-webkit-input-placeholder,input:-moz-placeholder,input::-moz-placeholder,input:-ms-input-placeholder{
+    color: #999;
+}
+/*内容居左居右*/
+.text-left{
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}

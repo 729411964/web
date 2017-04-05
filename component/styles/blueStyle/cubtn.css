@@ -1,0 +1,41 @@
+/*
+ * cuvbtn 1.0.0
+ * author： niulei
+ * Time: 2017.3.27
+ * description: 按钮组件样式。
+ */
+.cubtn-div{
+  font-size: 14px;
+
+}
+.cubtn{
+  height: 28px;
+  padding: 0 28px;
+  line-height: 28px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  color:#333;
+  background-color:#fafafa;
+  margin:10px;
+}
+.cubtn:hover{
+  color:#008fd6;
+}
+.disabled{
+  color: #999;
+  background-color: #e7e7e7;
+  cursor:not-allowed;
+}
+.cubtn:focus{
+  outline: none;
+  background-color: #f5f5f5;
+}
+.btn1 .cubtn{
+  height: 36px;
+  border-radius: 26px;
+  line-height: 36px;
+  padding: 0 30px;
+}
+.btn1 .disabled{
+  
+}
