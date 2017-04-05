@@ -528,6 +528,8 @@ var CheckHelper = (function () {
 
       if(resultTip.length<1){
         $dom.removeClass("validate-color");
+        $dom.siblings(".regTip").remove();
+        $dom.data("isinvalid",false);
       }
       $dom.data("resulttip",resultTip);
     };
@@ -547,15 +549,27 @@ var CheckHelper = (function () {
         $dom.data("resulttip",resultTip);
       }
       $dom.addClass("validate-color");
-      buildTipDiv($dom,regTip)
+      buildTipDiv($dom,regTip);
 
     };
     var buildTipDiv = function($dom,regTip){
       // 创建提示框的函数
-      var html='<div class="regTip"></div>';
-      var $html=$(html);
-      var options=$dom.data("options") || {};
-      
+      var html='<div class="regTip invalid-div"></div>';
+      if($dom.data("isinvalid")){
+        //若已有错误提示框，则只变更内容
+        $dom.siblings(".regTip").text(regTip);
+      }else{
+        //若无错误提示框，则创建
+        var options=$dom.data("options") || {};
+        if(options["tipStyle"]){
+           //若有配置项，则更换样式
+            html.replace("invalid-div"," "+options["tipStyle"]+" ");
+        }
+        var $html=$(html);
+        $html.text(regTip);
+        $dom.after($html);
+        $dom.data("isinvalid",true);
+      }
     }
     var addCheckStyle = function($dom, options){
       //加载校验的样式文件
