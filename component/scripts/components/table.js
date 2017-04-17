@@ -11,7 +11,7 @@ var Cutable = function () {
 }
 
 //注册cutable组件
-ParsingHelper.registerComponent("cutable", Cutable);
+ParsingHelper.registerComponent("cbtable", Cutable);
 
 //表格的配置
 Cutable.tableOptions = {

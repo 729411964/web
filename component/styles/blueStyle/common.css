@@ -60,3 +60,9 @@ input::-webkit-input-placeholder,input:-moz-placeholder,input::-moz-placeholder,
 .text-right {
     text-align: right;
 }
+
+
+ul{
+    margin: 0;
+    list-style: none;
+}

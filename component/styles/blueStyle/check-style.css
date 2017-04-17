@@ -4,6 +4,7 @@
  * Time: 2017.4.5
  * description: 校验样式
  */
+ @charset "utf-8";
 
  label.required:before {
      margin-right: 2px;
@@ -16,3 +17,21 @@
  .validate-color:focus{
    border: 1px solid #fc5043 !important;
  }
+.reg-tip{
+  position: absolute;
+}
+.invalid-div{
+  font-size: 12px;
+  color: #fc5043;
+  line-height: 18px;
+}
+.after-blue{
+  font-size: 12px;
+  color: #999;
+  line-height: 26px;
+  border: 1px solid #98caf4;
+  background-color: #f2f9ff;
+  display: inline-block;
+  margin-left: 5px;
+  padding: 0 5px;
+}

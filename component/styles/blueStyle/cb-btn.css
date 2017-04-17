@@ -4,11 +4,13 @@
  * Time: 2017.3.27
  * description: 按钮组件样式。
  */
-.cubtn-div{
+ @charset "utf-8";
+
+.cb-btn-div{
   font-size: 14px;
 
 }
-.cubtn{
+.cb-btn{
   height: 28px;
   padding: 0 28px;
   line-height: 28px;
@@ -18,7 +20,7 @@
   background-color:#fafafa;
   margin:10px;
 }
-.cubtn:hover{
+.cb-btn:hover{
   color:#008fd6;
 }
 .disabled{
@@ -26,16 +28,16 @@
   background-color: #e7e7e7;
   cursor:not-allowed;
 }
-.cubtn:focus{
+.cb-btn:focus{
   outline: none;
   background-color: #f5f5f5;
 }
-.btn1 .cubtn{
+.btn1 .cb-btn{
   height: 36px;
   border-radius: 26px;
   line-height: 36px;
   padding: 0 30px;
 }
 .btn1 .disabled{
-  
+
 }

@@ -1,0 +1,47 @@
+/*
+ * cuform 1.0.0
+ * author： anwenzhen
+ * Time: 2017.4.12
+ * description: 单选框
+ */
+@charset "utf-8";
+.cb-radio-div{
+    width: 80%;
+}
+
+.cb-radio-div > .radio-list{
+    float: left;
+    width: 100%;
+    padding-left: 22px;
+}
+.cb-radio-div > .radio-list>li{
+    position: relative;
+    float: left;
+    line-height: 26px;
+    padding-right: 10px;
+    padding-left: 20px;
+}
+
+.cb-radio-div input[type=radio] {
+    display: none;
+}
+.cb-radio-div input+label {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background: url("../../images/cb-radio/radio.png") no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top:5px;
+    left: 0;
+}
+.cb-radio-div input:checked+label:after {
+    height: 15px;
+    width: 15px;
+    background: url("../../images/cb-radio/radio-checked.png") no-repeat;
+    background-size: 100% 100%;
+    content: '';
+    position: absolute;
+    top:0;
+    left: 0;
+}

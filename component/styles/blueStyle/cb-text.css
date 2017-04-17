@@ -1,0 +1,17 @@
+/*
+ * cuform 1.0.0
+ * author： anwenzhen
+ * Time: 2017.4.12
+ * description: 文本样式
+ */
+@charset "utf-8";
+.cb-text-div{
+    width: 20%;
+}
+
+.cb-text-div .cb-label{
+    width: 100%;
+    text-align: right;
+    color:#4c4c4c;
+    line-height: 26px;
+}

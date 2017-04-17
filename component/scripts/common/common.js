@@ -6,11 +6,48 @@
  */
 
 $(function () {
+    //加载公共css文件
+    LoadStyle.loadTheme("common");
     //加载样式文件
-    LoadStyle.loadTheme(ParsingHelper.getTag());;
+    LoadStyle.loadTheme(ParsingHelper.getTag());
     //解析标签
     ParsingHelper.parsingTag();
+    //标签解析完毕后，进行事件绑定与校验绑定
+    InitModal.initHtml($("body"));
+
+
 })
+/*
+ * InitModal 1.0.0
+ * author： niulei
+ * Time: 2017.4.13
+ * description: 标签解析完后，用来绑定事件和校验。
+ */
+var InitModal = (function($){
+
+  // 初始化页面绑定的函数
+  var initHtml = function($dom){
+    var hasEventDom = $dom.find('[bindlist]');
+    var hasListenDom = $dom.find('[listen]');
+    var hasRegExpDom = $dom.find('[regexp]');
+    hasEventDom.each(function(index, item){
+      // 绑定事件
+      BindEvent.bindEvent($(item));
+    });
+    hasListenDom.each(function(index, item){
+      // 订阅事件
+      BindEvent.setListener($(item));
+    });
+    hasRegExpDom.each(function(index, item){
+      //绑定校验事件
+      CheckHelper.bindCheck($(item));
+    });
+  };
+  return {
+    initHtml:initHtml
+  }
+
+})(jQuery)
 
 /*
  * CommonAjax 1.0.0
@@ -24,13 +61,14 @@ $(function () {
       $.ajax({
         type : data.type ? data.type : 'POST',
         url : data.url ? data.url  : serviceUrl,
-		    data : data.param,
+		    data : data.params || {} ,
 		    cache: data.cache ? true : false,
 		    dataType : data.dataType ?  data.dataType : "json",
 		    traditional:true,
 		    success : function(returnData) {
           //data.successF(returnData);//请求成功
-          if(returnData.respCode == '0000'){
+          var respCode=data.respCode || "0000";
+          if(returnData.respCode == respCode){
             if(data.successF){
               data.successF(returnData);//请求成功
             }else{
@@ -68,7 +106,6 @@ $(function () {
      pathName = pathName.substring(0,pathName.substr(1).indexOf('/views')+1);
 
      var loadTheme = function (tagNames,isUpdate) {
-         createLink("common",isUpdate);
          if($.isArray(tagNames)){
            for(var i in tagNames){
              createLink(tagNames[i],isUpdate);
@@ -108,21 +145,22 @@ $(function () {
  */
 var Macro = (function () {
     var macroCommand = function ($tag, $dom, options) {
+        //获取标签名
+        var tagName = $tag[0].tagName.toLowerCase();
+        //获得当前标签的解析位置 index
+        var tagIndex = $tag.data("tagindex");
         //将配置绑定到Dom上
         $dom.data("options", options);
-        //通过是否含有hasbind属性获得要绑定事件的具体Dom
-        var $bindDom = $dom.find($('[hasbind]'));
+        //为组件设置内联样式
+        $dom.css($tag.data("cbstyle") || {});
         //为组件设置唯一的id
-        $dom.attr("cid", options.id);
-        //将自定义标签的样式放在Dom上。
-        $dom.addClass($tag.attr("class"));
-        //若有检验配置，则增加校验
-        CheckHelper.bindCheck($dom, options);
-        //为组件绑定事件
-        BindEvent.bindEvent($tag, $bindDom);
-        //为组件订阅事件
-        BindEvent.setListener($tag, $dom);
-        //添加校验规则。
+        $dom.attr("cid", CidFactory.makingCid(tagName, tagIndex, options.cid));
+        //将自定义标签的样式覆盖在Dom上。
+        $tag.attr("class") && $dom.attr("class",$tag.attr("class"));
+        //解析标签上的校验配置
+        CheckHelper.parseOptions($tag, $dom);
+        //解析标签上的事件与订阅
+        BindEvent.parseOptions($tag, $dom);
     };
     return {
         macroCommand: macroCommand
@@ -138,15 +176,18 @@ var Macro = (function () {
 var ParsingHelper = (function () {
     // 缓存已注册的组件
     var componentList = {};
+    //已解析的自定义标签个数
+    var tagNumberlist={};
     var registerComponent = function (componentName, fn) {
-        var fdStart = componentName ? componentName.indexOf("cu") : "-1";
+        var fdStart = componentName ? componentName.indexOf("cb-") : "-1";
         if (fdStart == 0) {
-            //若是以cu开头，则通过
+            //若是以cb开头，则通过
             if (typeof fn === "function") {
-                componentList[componentName] = fn;
+                componentList[componentName.toLowerCase()] = fn;
+                tagNumberlist[componentName.toLowerCase()] = 0 ;
             }
         } else {
-            //若不是以cu开头，则不通过
+            //若不是以cb开头，则不通过
             console.error("解析模块注册" + componentName + "组件时出错");
             return false;
         }
@@ -165,7 +206,8 @@ var ParsingHelper = (function () {
         if (tagName && typeof tagName === "string") {
             tagName = tagName.toLowerCase();
             if (componentList[tagName]) {
-
+                tagNumberlist[tagName] += 1;
+                $tag.data("tagindex",tagNumberlist[tagName]);
                 return componentList[tagName]["prototype"]["initTag"]($tag);
             } else {
                 return $tag;
@@ -173,27 +215,24 @@ var ParsingHelper = (function () {
         }
     };
     //递归解析标签
-    var recursivlyParse = function ($tag, tagNames) {
+    var recursivlyParse = function ($tag) {
         //获得解析后的Dom节点
         var $dom = initTag($tag[0].tagName, $tag);
         var tagArray = $dom.children();
         tagArray.each(function (index, item) {
             //解析具体的组件
-            recursivlyParse($(this), tagNames);
+            recursivlyParse($(this));
         })
     }
     var parsingTag = function () {
-        var tagArray = getTag();
-        var tagNames = tagArray.join(",");
         //递归解析标签
-        recursivlyParse($("body"), tagNames);
-
+        recursivlyParse($("body"));
     }
     return {
         registerComponent: registerComponent,
         getTag: getTag,
-        initTag: initTag,
-        parsingTag: parsingTag
+        parsingTag: parsingTag,
+        recursivlyParse:recursivlyParse
     }
 })();
 
@@ -206,48 +245,29 @@ var ParsingHelper = (function () {
  */
 var TemplateHelper = (function () {
 
-    var templateEngine = "mustache";
+    var checkEngineName = function (EngineName){
+      var templateEngine = TemplateList.getEngineName();
+      if (!EngineName) {
+          //若没有传模板引擎，则采用默认的模板引擎
+          EngineName = templateEngine;
+      } else if (!TemplateList.getTemplateFactory[EngineName]) {
+          //若采用的模板引擎不存在，则使用默认的模板引擎
+          console.error("不支持" + EngineName + "模板引擎，已使用默认模板引擎" + templateEngine + "生成Dom");
+          EngineName = templateEngine;
+      }
+      return EngineName;
+    }
 
     var templateList = {};//缓存模板的地方
 
-    var makingTemplate = {
-        //按照配置和所选模板引擎生成模板
-        mustache: {
-            render: function (template, data) {
-                //根据模板和数据，返回html片段
-                return result = Mustache.render(template, data);
-            },
-            initHeader: function (options) {
-                var template = "<tr>{{#.}}<th field='{{field}}'>{{title}}</th>{{/.}}</tr>";
-                return template;
-            },
-            initTable: function (options) {
-                var template = "{{#rows}}<tr>";
-                for (var i = 0; i < options.length; i++) {
-                    template = template + "<td>{{" + options[i].field + "}}</td>";
-
-                }
-                template = template + "</tr>{{/rows}}"
-                return template;
-            }
-
-        },
-        xxx: {}
-    }
-
     var parseOptions = function (type, id, options, EngineName) {
         //通过配置文件，生成模板   ，
-        if (!EngineName) {
-            //若没有传模板引擎，则采用默认的模板引擎
-            EngineName = templateEngine;
-        } else if (!makingTemplate[EngineName]) {
-            //若采用的模板引擎不存在，则使用默认的模板引擎
-            console.error("不支持" + EngineName + "模板引擎，已使用默认模板引擎" + templateEngine + "生成模板");
-            EngineName = templateEngine;
-        }
+        //校验模板名称，若不存在，则返回默认的模板名称
+        EngineName = checkEngineName(EngineName);
         if (id && typeof id === "string") {
             //调用生成模板的方法
-            var template = makingTemplate[EngineName][type](options);
+            var templateFactory = TemplateList.getTemplateFactory(EngineName,type);
+            var template = templateFactory(options);
             //将生成的模板存入缓存列表中
             templateList[id] = template;
         } else {
@@ -257,21 +277,17 @@ var TemplateHelper = (function () {
     }
     var renderTemplate = function (id, data, EngineName) {
         //通过id来查找模板，查找到模板后通过数据渲染出html片段。
-        if (!EngineName) {
-            //若没有传模板引擎，则采用默认的模板引擎
-            EngineName = templateEngine;
-        } else if (!makingTemplate[EngineName]) {
-            //若采用的模板引擎不存在，则使用默认的模板引擎
-            console.error("不支持" + EngineName + "模板引擎，已使用默认模板引擎" + templateEngine + "生成Dom");
-            EngineName = templateEngine;
-        }
+        //校验模板名称，若不存在，则返回默认的模板名称
+        EngineName = checkEngineName(EngineName);
         if (!templateList[id]) {
             console.error("未找到" + id + "模板");
             return false;
         }
-        return makingTemplate[EngineName]["render"](templateList[id], data);
+        var templateFactory = TemplateList.getTemplateFactory(EngineName,"render");
+        return templateFactory(templateList[id], data);
 
     };
+
     return {
         render: renderTemplate,
         parseOptions: parseOptions
@@ -304,49 +320,83 @@ var BindEvent = (function () {
     };
 
     //绑定事件函数
-    var bindEvent = function ($tag, $dom) {
-        var attributes = $tag[0].attributes;
-        var eventList = {};
-        for (var i in attributes) {
-            if (attributes.hasOwnProperty(i)) {
-                var strStart = attributes[i].nodeName.indexOf("bind");
-                if (strStart == 0) {
-                    //若是以bind开头，则将其推入列表中
-                    eventList[attributes[i].nodeName] = attributes[i].nodeValue;
-                } else {
-
-                }
-            }
+    var bindEvent = function ($dom) {
+        var bindList=$dom.attr("bindlist") ? $dom.attr("bindlist").split(",") : [];
+        for (var i = 0;i<bindList.length;i++){
+          (function ($) {
+              var eventType = bindList[i].split("-") || [];
+              $dom.on(eventType[0], function (event) {
+                  //阻止事件冒泡
+                  event.stopPropagation();
+                  //改变callHandler函数this的指向，确保回调函数中的this都为触发事件的元素
+                  EventHandler.callHandler.call(event.target, eventType[1], eventType[2]);
+              })
+          })(jQuery)
         }
-        attributes = null; //由于事件绑定会产生闭包，所以在此处释放内存空间
-        for (var name in eventList) {
-            $dom.attr(name, eventList[name]);
-            (function () {
-                var eventType = eventList[name].split(",");
-                $dom.on(getEventName(name), function (event) {
-                    //改变callHandler函数this的指向，确保回调函数中的this都为触发事件的元素
-                    EventHandler.callHandler.call(this, eventType[0], eventType[1]);
-                })
-            })()
 
-        }
 
     };
-    var setListener = function ($tag, $dom) {
-        var listenList = $tag.attr("listen");
+    var setListener = function ($dom) {
+        var listenList = $dom.attr("listen");
         if (!listenList) {
             //若未配置订阅者，则回退
             return false;
         }
         listenList = JSON.parse(listenList);
         for (var i in listenList) {
-            Eventlistenr.listenEvent.call($dom, i, listenList[i]);
+            EventListenr.listenEvent.call($dom, i, listenList[i]);
         }
 
     };
+    var parseOptions = function ($tag, $dom) {
+      //通过是否含有hasbind属性获得要绑定事件的具体Dom
+      $tag.attr("bindlist") ? $dom.attr("bindlist",$tag.attr("bindlist")) : false;
+      var $bindDom = $dom.find('[hasbind]').length > 0 ? $dom.find('[hasbind]') : $dom;
+      var attributes = $tag[0].attributes || err("获取标签属性出错",3);
+      var listenList = $tag.attr("listen");
+      var bindList = $bindDom.attr("listenlist") ? $bindDom.attr("listenlist").split(",") :[];
+      var eventParam = [];
+      var nodeValue = [];
+      for (var i in attributes) {
+          if (attributes.hasOwnProperty(i)) {
+              var strStart = attributes[i].nodeName.indexOf("bind");
+              if (strStart == 0) {
+                  //若是以bind开头，则。
+                  nodeValue = attributes[i].nodeValue ? attributes[i].nodeValue.split(",") : [];
+                  //获得绑定事件类型
+                  eventParam[0] = getEventName(attributes[i].nodeName);
+                  //获得事件的回调函数
+                  eventParam[1] = nodeValue[0];
+                  //获得发布事件的消息名
+                  eventParam[2] = nodeValue[1];
+                  //获得事件绑定标识，为了更换回调函数
+                  // eventParam[3] = nodeValue[2];
+                  bindList.push(eventParam.join("-"));
+              } else {
+
+              }
+          }
+      }
+      listenList ? $dom.attr("listen",listenList) : false;
+      bindList.length > 0 ? $bindDom.attr("bindlist",bindList.join(",")) : false;
+
+
+  };
+  var setListener = function ($dom) {
+      var listenList = $dom.attr("listen");
+      if (!listenList) {
+          //若未配置订阅者，则回退
+          return false;
+      }
+      listenList = JSON.parse(listenList);
+      for (var i in listenList) {
+          EventListenr.listenEvent.call($dom, i, listenList[i]);
+      }
+    }
     return {
         bindEvent: bindEvent,
-        setListener: setListener
+        setListener: setListener,
+        parseOptions: parseOptions
     }
 
 })();
@@ -400,117 +450,82 @@ var Event = (function () {
 var CheckHelper = (function () {
     var resultTipList={
       // 缓存校验结果的列表，现未使用
-    }
-    var regExpList = {
-        //正则表达式列表
-        number: "^[0-9]*$",
-        lowerLetter: "^[a-z]*$"
-    }
-    var checkList = {
-        //校验规则列表
-        required: function ($dom, regTip) {
-            //是否为必输项
-            var str = $.trim($dom.val());
-            var result=true;
-            var regTip= regTip === "default" ? "必输项" : regTip;
-            if (!str) {
-              result=false;
-            }
-            checkResult(result,$dom,regTip);
-        },
-        init: function ($dom, regTip) {
-            //是否为多少位的数字
-            var str = $.trim($dom.val());
-            var regTip= regTip === "default" ? "请输入正整数" : regTip;
-            var regExp = new RegExp("^[0-9]*$");
-            var result = regExp.test(str);
-            checkResult(result,$dom,regTip);
-
-        },
-        mail: function () {
-            //是否为邮箱
-
-        }
     };
-    var checkRegExp = function ($dom, regExp, regTip) {
-        //匹配正则
+    //匹配正则
+    var checkRegExp = function ($dom, regExpName, regTip) {
         var str = $.trim($dom.val());
         var regTip = regTip === "default" ? "输入不合法" : regTip;
-        var regExp = new RegExp(regExpList[regExp] ? regExpList[regExp] : regExp);
+        var regExp = new RegExp(ValidateRules.getCheckRegExp(regExpName) || regExpName);
         var result = regExp.test(str);
-        checkResult(result,$dom, regTip);
+        return [result , regTip];
     }
     //校验处理函数
-    var triggerChecking = function ($dom, regExps) {
-        for (var item in regExps) {
-            var hanler = checkList[item];
-            hanler ? hanler($dom, regExps[item]) : checkRegExp($dom, item, regExps[item]);
-
+    var triggerChecking = function ($dom, regList) {
+        for (var item in regList) {
+            var regExp = regList[item].split("-");
+            var hanler = ValidateRules.getCheckHandler(regExp[0]);
+            var result = hanler ? hanler($dom, regExp[1]) : checkRegExp($dom, regExp[0], regExp[1]);
+            checkResult(result[0],$dom, result[1]);
         }
-
     }
     //回调函数
-    var checkHandler = function () {
-        var $this = $(this);
-        var options = $this.data("options") || {};
-        //获得校验类型
-        var regExp = options["regExp"] ? options["regExp"].split(",") : [];
-        //获得校验提示
-        var regTip = options["regTip"] ? options["regTip"].split(",") : [];
-        var regExps = {};
-        for (var i = 0, ln = regExp.length; i < ln; i++) {
-            regExps[regExp[i]] = regTip[i] || "default";
+    var checkHandler = function (event) {
+        var $this = event ? $(event.target) : $(this);
+        var regList = $this.data("reglist") || [];
+        if(regList.length > 0){
+          triggerChecking($this, regList);
+        } else{
+          return false;
         }
-        triggerChecking($this, regExps);
     };
-    var bindCheck = function ($dom, options) {
-        if (!options.regExp) {
-            //若未配置校验，则返回
-            return false;
+    var bindCheck = function ($dom) {
+        var tagName =  $dom[0].tagName.toLowerCase();
+        var regList = $dom.attr("regexp") ? $dom.attr("regexp").split(",") : [];
+        var tipStyle = $dom.attr("tipstyle");
+        var $checkDom = $dom;
+        var tagNameList = ValidateRules.getTagName();
+        var tagName = ValidateRules.getEventName();
+        if($.inArray(tagName,tagNameList) == -1){
+          $checkDom = $dom.find(tagNameList.join(","));
         }
-        //为dom元素绑定keup事件来校验。
-        var $checkDom = $dom.find("input,textarea");
-        if($dom.length < 1){
-          $checkDom=$dom;
+        if($checkDom.length < 1){
+          console.error("校验元素中，必须包含 "+tagNameList.join(","));
+          return false;
         }
         //校验样式处理
-        addCheckStyle($dom, options)
-        //绑定校验规则
-        $checkDom.data("options", options);
+        addCheckStyle($dom, regList, tipStyle);
+        //将参数绑定在checkDom上
+        $checkDom.data("reglist",regList);
+        $checkDom.data("tipstyle",tipStyle);
         //绑定keyup事件
-        $checkDom.on("keyup", checkHandler);
+        $checkDom.on(tagName, checkHandler);
     };
-    var checkForm = function () {
-        //校验表单
+    //校验表单
+    var checkForm = function ($form) {
+        var flag=true;
+        var tagNameList = ValidateRules.getTagName();
+        var $items=$form.find(tagNameList.join(","));
+        $items.each(function(){
+          checkHandler.call(this);
+          if($(this).data("resulttip") && $(this).data("resulttip").length > 0 ){
+            flag=false;
+            $(this).focus();
+          }
+        });
+        return flag;
     };
-    var addHandler = function (checkName,handler) {
-        //增加校验函数
-        if(handler && typeof handler === "function"){
-          checkList[checkName] = handler;
-        }else{
-          return false;
-        }
 
-    };
-    var addRegExp = function (regName,regExp) {
-        //增加校验正则表达式
-        if(regExp && typeof regExp === "string"){
-          regExpList[regName] = regExp;
-        }else{
-          return false;
-        }
-
-    };
+    //设置错误校验弹出的主题
     var setTheme = function (themeName) {
-        //设置错误校验弹出的主题
+
         if(themeName && typeof themeName === "string"){
+          LoadStyle.loadTheme("check-style",true);
         }else{
           return false;
         }
-
     };
+    //根据校验结果 来弹出和隐藏相应的提示
     var checkResult = function (result,$dom,regTip) {
-        //根据校验结果 来弹出和隐藏相应的提示
         result?hideTip($dom,regTip):showTip($dom,regTip);
 
     };
@@ -518,30 +533,29 @@ var CheckHelper = (function () {
       //隐藏校验结果
       var resultTip=$dom.data("resulttip") || [];
       var index=$.inArray(regTip,resultTip);
-      if(regTip === "hideAllTip"){
+      if(regTip === "hideAllTip" || resultTip.length<1){
         resultTip=[];
+        $dom.removeClass("validate-color");
+        $dom.siblings(".reg-tip").remove();
+        $dom.data("isinvalid",false);
       }else{
         if(index !== -1){
           resultTip.splice(index ,1);
         }
       }
-
-      if(resultTip.length<1){
-        $dom.removeClass("validate-color");
-        $dom.siblings(".regTip").remove();
-        $dom.data("isinvalid",false);
-      }
       $dom.data("resulttip",resultTip);
     };
+
+    //隐藏所有的提示信息，一般为重置输入时使用
     var hideAllTip = function($form){
-      //隐藏所有的提示信息，一般为重置输入时使用
-      $form.find("input,textarea").each(function(index,item){
+      var tagNameList = ValidateRules.getTagName();
+      $form.find(tagNameList.join(",")).each(function(index,item){
         hideTip($(this),"hideAllTip");
       })
 
-    }
+    };
+    //显示校验结果
     var showTip = function($dom,regTip){
-      //显示校验结果
       var resultTip=$dom.data("resulttip") || [];
       var index=$.inArray(regTip,resultTip);
       if(index == -1){
@@ -552,45 +566,75 @@ var CheckHelper = (function () {
       buildTipDiv($dom,regTip);
 
     };
+    // 创建提示框的函数
     var buildTipDiv = function($dom,regTip){
-      // 创建提示框的函数
-      var html='<div class="regTip invalid-div"></div>';
+      var html='<div class="reg-tip invalid-div"></div>';
       if($dom.data("isinvalid")){
         //若已有错误提示框，则只变更内容
-        $dom.siblings(".regTip").text(regTip);
+        $dom.siblings(".reg-tip").text(regTip);
       }else{
         //若无错误提示框，则创建
-        var options=$dom.data("options") || {};
-        if(options["tipStyle"]){
+        var tipStyle=$dom.data("tipstyle");
+        if(tipStyle !=="default"){
            //若有配置项，则更换样式
-            html.replace("invalid-div"," "+options["tipStyle"]+" ");
+            html=html.replace("invalid-div"," "+tipStyle+" ");
         }
         var $html=$(html);
         $html.text(regTip);
         $dom.parent().css("position","relative");
         $dom.after($html);
+        if(tipStyle =="default"){
+           //若无配置项，则采用默认的样式
+           $html.css("left",$dom.position().left+"px");
+           $html.css("top",$dom.outerHeight()+"px");
+
+        }
         $dom.data("isinvalid",true);
       }
-    }
-    var addCheckStyle = function($dom, options){
-      //加载校验的样式文件
+    };
+    //加载校验的样式文件
+    var addCheckStyle = function($dom, regList, tipStyle){
       LoadStyle.loadTheme("check-style");
       //获得校验类型
-      var regExp = options["regExp"] ? options["regExp"].split(",") : [];
-      var index=$.inArray("required",regExp);
-      if(index !== -1){
-        $dom.find("label").addClass("required");
+      for(var i =0 ;i<regList.length; i++){
+        var index=$.inArray("required",regList[i].split("-"));
+        if(index !== -1){
+          $dom.find("label").addClass("required");
+          break ;
+        }
       }
 
+
     };
+    var parseOptions = function($tag, $dom){
+      var regList = $tag.attr("regexp");
+      if(!regList){
+        return false;
+      }
+      var regexp = [];
+      var tipStyle = $tag.attr("tipstyle") || "default";
+      var $checkDom = $dom.find('[hascheck]').length > 0 ? $dom.find('[hascheck]') : $dom;
+      var newRegList =[];
+      regList = regList.split(",");
+      for(var i = 0;i < regList.length;i++){
+        regexp = regList[i].split("-");
+        if(!regexp[1]){
+          regexp[1] = "default";
+        }
+        newRegList.push(regexp.join("-"));
+      }
+      regList=newRegList.join(",");
+      if(regList){
+        $checkDom.attr("regexp",regList);
+        $checkDom.attr("tipstyle",tipStyle);
+      }
+    }
     return {
         bindCheck: bindCheck,
         checkForm: checkForm,
-        addHandler: addHandler,
-        addRegExp:addRegExp,
         setTheme:setTheme,
-        checkResult:checkResult,
-        hideAllTip:hideAllTip
+        hideAllTip:hideAllTip,
+        parseOptions:parseOptions
     }
 
 })();
@@ -614,9 +658,9 @@ var CheckHelper = (function () {
   * description: 序列化模块
   */
 var Serialize = (function(){
-  var serializing=function($dom){
+  var serializing=function($form){
     var result={};
-    var array=$dom.serializeArray();
+    var array=$form.serializeArray();
     for(var i in array){
       var name=array[i]["name"];
       var value=array[i]["value"];
@@ -631,9 +675,9 @@ var Serialize = (function(){
     return result;
 
   }
-  var serializeObject=function($dom){
-    if($dom[0].tagName.toLowerCase()=="form"){
-      return serializing($dom);
+  var serializeObject=function($form){
+    if($form[0].tagName.toLowerCase()=="form"){
+      return serializing($form);
     }else{
       err("序列化出错",2);
     }
@@ -643,3 +687,24 @@ var Serialize = (function(){
     serializeObject:serializeObject
   };
 })();
+/*
+ * CidFactory 1.0.0
+ * author： niulei
+ * Time: 2017.4.11
+ * description: 生成组件唯一标识
+ */
+ var CidFactory = (function(){
+   var cidList = [];
+   var makingCid = function(tagName, tagIndex, cid){
+
+     if(cid && cid+"" !== tagName && $.inArray(cid+"",cidList) == -1){
+       cidList.push(cid+"");
+       return cid;
+     }else{
+       return tagName+tagIndex;
+     }
+   };
+   return {
+     makingCid:makingCid
+   }
+ })()

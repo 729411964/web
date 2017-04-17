@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>输入框组件</title>
+    <!--  公共模块JS-->
+    <script src="../plugins/jquery/jquery-1.10.1.min.js"></script>
+    <script src="../scripts/common/common.js"></script>
+    <script src="../scripts/api/common-event.js"></script>
+    <script src="../scripts/api/common-listen.js"></script>
+    <script src="../scripts/api/common-rule.js"></script>
+    <script src="../plugins/mustache/mustache.min.js"></script>
+    <script src="../scripts/api/common-template.js"></script>
+    <!-- 按钮 -->
+    <script src="../scripts/components/cb-input.js"></script>
+</head>
+<body>
+<cb-input class="" data-options='{"label":"查询条件：","placeholder":"请输入","type":"password","name":"aaa"}'></cb-input>
+<cb-input class="" data-options='{"label":"查询条件2：","placeholder":"请输入姓名","type":"password","name":"input2","regExp":"lowerLetter","regTip":"请输入小写字母"}'></cb-input>
+</body>
+
+</html>

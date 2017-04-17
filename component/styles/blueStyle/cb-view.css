@@ -4,9 +4,10 @@
  * Time: 2017.4.5
  * description: 容器样式
  */
-.content-item{
+ @charset "utf-8";
+
+ .content-item{
   float: left;
-  width: 33%;
   color: #333;
   padding: 20px 10px;
 }

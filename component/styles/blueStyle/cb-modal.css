@@ -1,0 +1,117 @@
+/*
+ * cuform 1.0.0
+ * author： dongjingfeng
+ * Time: 2017.4.6
+ * description: 模态框样式
+ */
+@charset "utf-8";
+.cbmodal-div{
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:99;
+}
+.modal-div{
+    min-width:400px;
+    max-width:800px;
+    min-height:200px;
+    max-height:400px;
+    border:1px solid #dddddd;
+    border-radius: 4px;
+    background:#fafafa;
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+}
+.modal-div:after{
+    content:'';
+    clear: both;
+    display: block;
+}
+
+.modal-title{
+    width:100%;
+    height:30px;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding:0 20px;
+    color:#666666;
+    background:linear-gradient(to bottom,#f0f0f0,#fbfbfb);
+    /*#f0f0f0,#fbfbfb*/
+}
+.modal-div .close{
+    font-weight: normal;
+    float:right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-content{
+    max-height:350px;
+    padding:0 15px;
+    /*overflow:auto;*/
+}
+.cbmodal-div .danger{
+    width:100%;
+    color:#ff3300;
+    font-weight: bold;
+    font-size: 14px;
+}
+/*.modal-content .content-item{*/
+    /*padding:0;*/
+/*}*/
+/*.modal-content:first-child{*/
+    /*text-align: center;*/
+/*}*/
+/*/!*.modal-content .content-item:nth-child(1){*!/*/
+    /*/!*text-align: right;*!/*/
+/*/!*}*!/*/
+/*.modal-content .cbinput-div{*/
+    /*overflow: hidden;*/
+    /*padding: 0;*/
+    /*/!*width:100%;*!/*/
+    /*display:inline-block;*/
+    /*margin:0 5px;*/
+    /*margin-top: 20px;*/
+    /*font-size: 0;*/
+/*}*/
+/*.modal-content .cbinput-div>input{*/
+    /*width:70%;*/
+    /*/!*float: left;*!/*/
+/*}*/
+/*.modal-content .cbinput-div>label{*/
+    /*clear: both;*/
+    /*width:auto;*/
+    /*font-size: 14px;*/
+/*}*/
+/*.modal-content .cbview-div:last-child{*/
+    /*width:100%;*/
+    /*display: inline-block;*/
+    /*text-align: center;*/
+/*}*/
+/*.modal-content .cbview-div:last-child .content-item:first-child{*/
+    /*text-align: right;*/
+/*}*/
+/*/!*.modal-operation .cbview-div .content-item:first-child {*!/*/
+    /*/!*text-align: right;*!/*/
+/*/!*}*!/*/
+/*.modal-content .cbview-div:last-child .content-item:last-child{*/
+    /*text-align: left;*/
+/*}*/
+/*/!*.modal-operation .cbview-div .content-item:last-child {*!/*/
+    /*/!*text-align: left;*!/*/
+/*/!*}*!/*/
+/*.modal-content .cbbtn-div{*/
+    /*display:inline-block;*/
+/*}*/
+/*.modal-content .cbbtn{*/
+    /*/!*margin:20px 5px;*!/*/
+/*}*/

@@ -1,0 +1,21 @@
+/*
+ * cuform 1.0.0
+ * author： anwenzhen
+ * Time: 2017.4.12
+ * description: 下拉框
+ */
+@charset "utf-8";
+.cb-select-div{
+    color:#666;
+    width: 80%;
+    padding:0 5px;
+}
+.cb-select-div > .select-list{
+    float: left;
+    width: 100%;
+}
+
+.cb-select-div option{
+    height: 26px;
+    line-height: 26px;
+}

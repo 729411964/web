@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+  <meta name="renderer" content="webkit"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>模态框组件</title>
+  <!--  公共模块-->
+  <script src="../plugins/jquery/jquery-1.10.1.min.js"></script>
+  <script src="../scripts/common/common.js"></script>
+  <script src="../scripts/api/common-event.js"></script>
+  <script src="../scripts/api/common-listen.js"></script>
+   <!--按钮-->
+  <script src="../scripts/components/cb-view.js"></script>
+  <script src="../scripts/components/cb-form.js"></script>
+  <script src="../scripts/components/cb-input.js"></script>
+  <script src="../scripts/components/cb-btn.js"></script>
+  <script src="../scripts/components/cb-modal.js"></script>
+</head>
+<body>
+  <cb-btn bindcl="modalShow,event1" data-options='{"showId":modal1}'>模态框</cb-btn>
+  <!--<cb-modal data-options='{"cid":"modal1","operation":["close","confirm","cancel"]}' listen={"event1":"showModal","event2":"confirm","event3":"cancel"}>-->
+  <cb-modal data-options='{"cid":"modal1"}' listen={"event1":"showModal","event2":"confirm","event3":"cancel"}>
+    <!--<cb-view data-options='{"column":"1"}'>-->
+    <!--<cb-form data-options='{"title":"测试版","width":"100%"}'>-->
+    <!--<cb-input class="" data-options='{"label":"查询条件1：","placeholder":"请输入姓名","name":"input1","regExp":"required","regTip":"必须输入"}'></cb-input>-->
+    <!--<cb-input class="" data-options='{"label":"查询条件1：","placeholder":"请输入姓名","name":"input1","regExp":"required","regTip":"必须输入"}'></cb-input>-->
+    <!--<cb-input class=""    data-options='{"label":"查询条件1：","placeholder":"请输入姓名","name":"input1","regExp":"required","regTip":"必须输入"}'></cb-input>-->
+    <!--</cb-form>-->
+    <!--</cb-view>-->
+    <!--<cb-view data-options='{"column":"2"}'>-->
+    <!--<cb-btn bindcl="modalShow,event2">确认</cb-btn>-->
+    <!--<cb-btn bindcl="modalShow,event3">取消</cb-btn>-->
+    <!--</cb-view>-->
+  </cb-modal>
+  <cb-form cid="form1" data-options='{"title":"测试数据加载","width":"600px"}'>
+    <cb-input data-options='{"label":"姓名","type":"text","name":"userName"}'></cb-input>
+    <cb-input data-options='{"label":"密码","type":"text","name":"userPwd"}'></cb-input>
+    <cb-input data-options='{"label":"性别","type":"text","name":"userGender"}'></cb-input>
+    <cb-input data-options='{"label":"联系方式","type":"text","name":"userPhone"}'></cb-input>
+    <cb-input data-options='{"label":"地址","type":"text","name":"userAddress"}'></cb-input>
+  </cb-form>
+  <!--测试模态框显示后，是否限制用户操作-->
+  <div style="width:20px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet commodi corporis cum delectus est fugit harum ipsam
+    ipsum iste magni modi neque nostrum perspiciatis, quam reiciendis repudiandae tempore veniam vero?
+  </div>
+  <div>Hic, necessitatibus, vero! Aliquam consequatur dolorum, enim eveniet impedit libero modi molestias necessitatibus
+    nesciunt provident, ratione repudiandae soluta tempore temporibus, totam. Amet, doloribus ea id in quibusdam quo rerum
+    voluptates.
+  </div>
+  <div cid="div1">div1=----------------->Adipisci animi atque, consequatur corporis doloremque dolorum eum eveniet facere laboriosam, laudantium molestias
+    nam odit optio, praesentium quasi quibusdam tenetur voluptatem? Eaque error harum id mollitia natus quasi reiciendis
+    tempore.
+  </div>
+  <div style="width:20px;">Eum ex sunt totam velit! Aperiam et eum ex excepturi facilis fugiat illum ipsum itaque modi, nostrum quae quo
+    reiciendis similique, ut vitae voluptas voluptatem? Aliquid amet laboriosam nemo quibusdam?
+  </div>
+  <div>Ab adipisci autem, beatae commodi consectetur cumque cupiditate, dolor dolore doloremque est fuga ipsa libero
+    molestiae molestias nemo tenetur, voluptates. Aliquam aperiam aut cupiditate et id numquam perferendis ullam
+    voluptatem.
+  </div>
+  <div>Aliquam at aut consequatur, cupiditate debitis dolorem error ex, fuga harum impedit ipsa, iusto nihil nostrum odit
+    voluptates? Aperiam delectus deserunt ea error inventore non nulla reiciendis rerum sequi, veritatis.
+  </div>
+  <div>Amet culpa distinctio dolorem eum fugiat id maxime minima, omnis perferendis repudiandae saepe sed temporibus. Amet
+    aspernatur blanditiis cum dolorem dolorum, fugit illum maxime officiis quaerat quas soluta totam, velit?
+  </div>
+  <div>Accusamus aliquid commodi cumque dolore excepturi, incidunt magnam. A culpa debitis deserunt dignissimos dolore,
+    excepturi ipsam maxime modi necessitatibus nobis optio quidem quisquam recusandae repellat saepe tenetur ullam vero
+    voluptatibus!
+  </div>
+  <div>Ab commodi consequuntur dolorem iure maiores nobis quae temporibus voluptate. Consequuntur, culpa cumque
+    dignissimos, dolor dolorem earum fugit ipsa libero magnam magni necessitatibus odit qui quia quidem rerum veniam
+    voluptatum.
+  </div>
+  <div>Ducimus ea non perspiciatis! Ad dicta eos facere illo, in maiores officiis quos sunt vel, velit voluptate
+    voluptatibus. Autem consequuntur facere incidunt iure placeat praesentium quia repudiandae rerum tempore vero.
+  </div>
+
+</body>
+</html>

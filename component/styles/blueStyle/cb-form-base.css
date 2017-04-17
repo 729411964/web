@@ -1,0 +1,149 @@
+/*
+ * cuform 1.0.0
+ * author： anwenzhen
+ * Time: 2017.4.12
+ * description: 表单基础组件
+ */
+@charset "utf-8";
+.cb-form-base-div{
+    width: 100%;
+}
+.cb-form-base-div .label{
+    float: left;
+    width: 20%;
+    line-height: 26px;
+    height: 26px;
+    text-align: right;
+    padding-right: 5px;
+}
+/*输入框*/
+.cb-form-base-div > input{
+    width: 80%;
+    height: 26px;
+    border: 1px solid #ddd;
+    color:#666;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 14px;
+    border-radius: 4px;
+}
+
+.cb-form-base-div > input:focus{
+    border: 1px solid #4ac9ff;
+}
+/*多选框*/
+.cb-form-base-div > .checkbox-list{
+    float: left;
+    width: 80%;
+    padding-left: 22px;
+}
+.cb-form-base-div > .checkbox-list>li{
+    float: left;
+    line-height: 26px;
+    padding-right: 10px;
+}
+
+.cb-form-base-div > .checkbox-list>li>span{
+    margin-left: 5px;
+}
+
+.cb-form-base-div .checkbox-list input[type=checkbox] {
+    visibility: hidden;
+}
+.cb-form-base-div .checkbox-list input+label {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #008fd6;
+    margin-left:-34px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+}
+.cb-form-base-div .checkbox-list input:checked+label:after {
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 5px;
+    margin-top:1px;
+    border: 2px solid #008fd6;
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+/*单选框的样式*/
+.cb-form-base-div > .radio-list{
+    float: left;
+    width: 80%;
+    padding-left: 22px;
+}
+.cb-form-base-div > .radio-list>li{
+    position: relative;
+    float: left;
+    line-height: 26px;
+    padding-right: 10px;
+    padding-left: 20px;
+}
+
+.cb-form-base-div .radio-list [type=radio] {
+    display: none;
+}
+.cb-form-base-div .radio-list input+label {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background: url("../../images/cb-radio/radio.png") no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top:5px;
+    left: 0;
+}
+.cb-form-base-div .radio-list input:checked+label:after {
+    height: 15px;
+    width: 15px;
+    background: url("../../images/cb-radio/radio-checked.png") no-repeat;
+    background-size: 100% 100%;
+    content: '';
+    position: absolute;
+    top:0;
+    left: 0;
+}
+
+/*下拉框*/
+.cb-form-base-div > .select-list{
+    float: left;
+    width: 80%;
+    height: 26px;
+}
+
+.cb-form-base-div option{
+    height: 26px;
+    line-height: 26px;
+}
+
+/*文本输入框*/
+.cb-form-base-div > textarea{
+    float: left;
+    width: 80%;
+    border: 1px solid #ddd;
+    color:#666;
+    padding: 3px 5px;
+    font-size: 14px;
+    line-height: 18px;
+    border-radius: 4px;
+    resize: none;
+    min-height: 62px;
+}
+
+.cb-form-base-div > textarea:focus{
+    border: 1px solid #4ac9ff;
+}
+
+.cb-form-base-div >.textarea-remark{
+    float: right;
+    line-height: 16px;
+    color:#fc5043;
+}

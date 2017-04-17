@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>容器组件</title>
+    <!--  公共模块JS-->
+    <script src="../plugins/jquery/jquery-1.10.1.min.js"></script>
+    <script src="../scripts/common/common.js"></script>
+    <script src="../scripts/api/common-event.js"></script>
+    <script src="../scripts/api/common-listen.js"></script>
+    <script src="../plugins/mustache/mustache.min.js"></script>
+    <script src="../scripts/api/common-template.js"></script>
+    <!-- 容器 -->
+    <script src="../scripts/components/cb-view.js"></script>
+    <!-- 表格 -->
+    <script src="../scripts/components/table.js"></script>
+    <!-- 按钮 -->
+    <script src="../scripts/components/cbbtn.js"></script>
+    <!-- 输入框 -->
+    <script src="../scripts/components/cb-input.js"></script>
+
+  </head>
+  <body>
+    <cbview class="as de" data-options='{  "column":"3","domDiv":"cuview2","id":"233"}'>
+      <cbinput data-options='{"regExp":"required,lowerLetter","regTip":",请输入小写字母"}'>组件一</cbinput>
+      <cbview data-options='{"column":"2","domDiv":"cuview1"}'>
+        <cbinput class="wing">组件二一</cbinput>
+        <cbcheckbox class="wing">组件三二</cbcheckbox>
+      </cbview>
+
+      <cbtable  colspan="3" listen='{"even1":"listen1","event2":"linten2"}' data-options='{
+        "tableDiv":"table1",
+        "tableId":"3434",
+       "idField":"deviceNumber",
+       "operation":[{"field":"batchNo","triggerType":"select"}],
+        "columns":[
+        {"field":"deviceNumber","title":"业务号码"},
+        {"field":"storeName","title":"库"}
+         ]}'>
+       </cbtable>
+      <cbbtn class="wing" data-options='{"domDiv":"1","id":"btn1"}' bindcl="wing,even1" bindbl="wing3,event2">按钮一</cbbtn>
+    </cbview>
+
+  </body>
+
+      <script type="text/javascript">
+
+        (function(){
+          EventHandler.addHandler("wing",function(triggerName){
+            console.log($(this));
+            console.log(triggerName+" 自定义的事件函数");
+            Event.trigger(triggerName);
+          })
+        })();
+        (function(){
+          EventListenr.addListenr("listen1",function(triggerName){
+            console.log($(this));
+            console.log("demaxiya");
+          })
+        })();
+
+      </script>
+</html>

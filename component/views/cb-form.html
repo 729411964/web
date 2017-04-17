@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>表单容器组件</title>
+    <!--  公共模块JS-->
+    <script src="../plugins/jquery/jquery-1.10.1.min.js"></script>
+    <script src="../scripts/api/common-rule.js"></script>
+    <script src="../scripts/common/common.js"></script>
+    <script src="../scripts/api/common-event.js"></script>
+    <script src="../scripts/api/common-listen.js"></script>
+    <script src="../plugins/mustache/mustache.min.js"></script>
+    <script src="../scripts/api/common-template.js"></script>
+    <!-- 表单容器 -->
+    <script src="../scripts/components/cb-form.js"></script>
+    <!-- 容器 -->
+    <script src="../scripts/components/cb-view.js"></script>
+    <!-- 按钮 -->
+    <script src="../scripts/components/cb-btn.js"></script>
+    <!-- 输入框 -->
+    <script src="../scripts/components/cb-input.js"></script>
+    <!-- 单选 -->
+    <script src="../scripts/components/cb-radio.js"></script>
+    <!-- 多选 -->
+    <script src="../scripts/components/cb-checkbox.js"></script>
+    <!-- 下拉框 -->
+    <script src="../scripts/components/cb-select.js"></script>
+    <!-- 文本 -->
+    <script src="../scripts/components/cb-text.js"></script>
+    <!-- 表单内基础组件 -->
+    <script src="../scripts/components/cb-form-base.js"></script>
+
+  </head>
+  <body>
+    <cb-form class="" data-options='{"title":"查询条件","width":"1200px"}'>
+      <cb-view class="border-bottom" data-options='{"column":"2","domDiv":"cuview1"}'>
+        <cb-text class="" data-options='{"text":"查询条件：","name":"aaa","width":"20%"}'></cb-text>
+        <cb-input class="" regexp="required-必须输入姓名,lowerLetter-请输入小写字母" data-options='{"placeholder":"请输入姓名","name":"input1"}'></cb-input>
+        <cb-text class="" data-options='{"text":"查询条件：","name":"aaa","width":"20%"}'></cb-text>
+        <cb-input class="" regexp="lowerLetter-请输入小写字母" data-options='{"placeholder":"请输入姓名","name":"input2"}'></cb-input>
+        <cb-text class="" data-options='{"text":"查询条件：","name":"aaa","width":"20%"}'></cb-text>
+        <cb-input colspan="2" class="" regexp="required,number-请输入整数" tipstyle="after-blue" data-options='{"placeholder":"请输入姓名","name":"input3"}'></cb-input>
+        <cb-text class="" data-options='{"text":"查询条件：","name":"aaa","width":"20%"}'></cb-text>
+        <cb-select class=""
+                   data-options='{"cid":"ssss","name":"goodLevel","isRequest":"","list":"outputParamList","value":"key","text":"value","paraCode":"NUM_LEVEL","option":[{"key":"1","value":"普号"},{"key":"2","value":"靓号"},{"key":"03","value":"优质号码"},{"key":"04","value":"带“4”号"}]}'></cb-select>
+        <cb-text class="" data-options='{"text":"查询条件：","name":"aaa","width":"20%"}'></cb-text>
+        <cb-checkbox class=""
+                   data-options='{"cid":"ssss","name":"goodLevel","isRequest":"","list":"outputParamList","value":"key","text":"value","paraCode":"NUM_LEVEL","option":[{"key":"1","value":"普号"},{"key":"2","value":"靓号"},{"key":"03","value":"优质号码"},{"key":"04","value":"带“4”号"}]}'></cb-checkbox>
+        <cb-text class="" data-options='{"text":"查询条件：","name":"aaa","width":"20%"}'></cb-text>
+        <cb-radio class=""
+                   data-options='{"cid":"ssss","name":"good","isRequest":"","list":"outputParamList","value":"key","text":"value","paraCode":"NUM_LEVEL","option":[{"key":"1","value":"普号"},{"key":"2","value":"靓号"},{"key":"03","value":"优质号码"},{"key":"04","value":"带“4”号"}]}'></cb-radio>
+        <cb-form-base class="cb-form-base" data-options='{"item":"input","type":"text","cid":"ssss","label":"靓号级别：","name":"goodLevel","isRequest":"false","list":"outputParamList","value":"key","text":"value","paraCode":"NUM_LEVEL","option":[{"key":"1","value":"普号"},{"key":"2","value":"靓号"},{"key":"03","value":"优质号码"},{"key":"04","value":"带“4”号"}]}' regExp="required-必须输入姓名"></cb-form-base>
+      </cb-view>
+      <cbview class="text-left border-bottom" >
+        <cb-btn class="" data-options='{"id":"4567"}' bindcl="serialize,even1" bindbl="wing3,event2" listen='{"even1":"df"}'>表单提交</cb-btn>
+      </cbview>
+
+    </cb-form>
+  </body>
+
+</html>

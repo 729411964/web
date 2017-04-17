@@ -4,7 +4,9 @@
  * Time: 2017.4.1
  * description: 视图容器样式
  */
-.cuform{
+ @charset "utf-8";
+
+.cb-form{
   border-top: 2px solid #1a80d4;
   border-left: 1px solid #ededed;
   border-right: 1px solid #ededed;
@@ -12,7 +14,7 @@
   font-size: 14px;
   color:#333;
 }
-.cuform-head{
+.cb-form-head{
   color: #000;
   font-size: 14px;
   text-align: left;
@@ -22,6 +24,6 @@
   padding-left: 10px;
   font-weight: bold;
 }
-.cuform-div{
+.cb-form-div{
   margin: 10px auto;
 }

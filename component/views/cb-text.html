@@ -5,23 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
     <meta name="renderer" content="webkit"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>输入框组件</title>
+    <title>文本展示组件</title>
     <!--  公共模块JS-->
     <script src="../plugins/jquery/jquery-1.10.1.min.js"></script>
     <script src="../scripts/common/common.js"></script>
-    <script src="../scripts/api/commonEvent.js"></script>
-    <script src="../scripts/api/commonListen.js"></script>
+    <script src="../scripts/api/common-event.js"></script>
+    <script src="../scripts/api/common-listen.js"></script>
     <script src="../plugins/mustache/mustache.min.js"></script>
-    <!-- 表单容器 -->
-    <script src="../scripts/components/cuform.js"></script>
-    <!-- 容器 -->
-    <script src="../scripts/components/cuview.js"></script>
+    <script src="../scripts/api/common-template.js"></script>
     <!-- 按钮 -->
-    <script src="../scripts/components/cuinput.js"></script>
+    <script src="../scripts/components/cb-text.js"></script>
 
 </head>
 <body>
-<cuinput class="" data-options='{"label":"查询条件：","width":"1200px","placeholder":"请输入","type":"password"}'></cuinput>
+<cb-text   class="" data-options='{"cid":"ssss",text":"outputParam"}'></cb-text>
 </body>
 
 </html>
