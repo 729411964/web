@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise.rase 示例</title>
+</head>
+<body>
+
+</body>
+<script src="../jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    function getPromise(data) {
+        return new Promise(function (resolve, reject) {
+            resolve(data);
+        });
+    }
+    var request = {
+        a: function () {
+            return getPromise({a:1}).then(JSON.stringify);
+        },
+        b: function () {
+            return getPromise({b:2}).then(JSON.stringify);
+        }
+    };
+    function main() {
+        return Promise.race([request.a(), request.b()]);
+    }
+    // 运行示例
+    main().then(function (value) {
+        console.log(value);
+    }).catch(function(error){
+        console.log(error);
+    });
+    /**
+     *执行结果为  {"a":1}
+     *
+     * Promise.all 接收一个 promise对象的数组作为参数，只要有一个promise对象进入 FulFilled 或者 Rejected 状态的话，它就会去调用 .then 方法。
+     *
+     * */
+</script>
+</html>
