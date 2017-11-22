@@ -10,6 +10,7 @@
 
     function taskA(value) {
         console.log("Task A",value);
+        return Promise.resolve(3);
     }
     function taskB(value) {
         console.log("Task B",value);
@@ -31,10 +32,12 @@
      * 输出结果
      *
      * Task A 2
-     * Task B undefined
+     * Task B 3
      * Final Task undefined
      *
-     * taskB finalTask 未接收到value值
+     * taskA中返回了 promise对象
+     * taskB接受到了 taskA中 promise对象的值
+     * finalTask 未接受到promise对象的值
      *
      * */
 </script>
