@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise链式调用</title>
+</head>
+<body>
+<script src="../jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+
+    function taskA(value) {
+        console.log("Task A",value);
+    }
+    function taskB(value) {
+        console.log("Task B",value);
+    }
+    function onRejected(error) {
+        console.log("Catch Error: A or B", error);
+    }
+    function finalTask(value) {
+        console.log("Final Task",value);
+    }
+
+    var promise = Promise.resolve(2);
+    promise
+        .then(taskA)
+        .then(taskB)
+        .catch(onRejected)
+        .then(finalTask);
+    /**
+     * 输出结果
+     *
+     * Task A 2
+     * Task B undefined
+     * Final Task undefined
+     *
+     * taskB finalTask 未接收到value值
+     *
+     * */
+</script>
+
+
+</body>
+</html>
