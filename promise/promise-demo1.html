@@ -10,7 +10,7 @@
 <script src="../jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     //当 new Promise后，promise构造函数中传递的函数即被执行；
-    //所以 异步函数是哪个线程在执行 ？
+    //所以 异步函数是还是在主线程中执行
     console.log("new Promise之前");
     var promise = new Promise(function (resolve, reject) {
         var data = {
@@ -18,9 +18,11 @@
             b: 2
         };
         console.log("异步执行中");
-        setTimeout(function () {
-            resolve(data)
-        }, 1000);
+        resolve(data)
+
+//        setTimeout(function () {
+//            resolve(data)
+//        }, 1000);
     });
     console.log("new promise之后");
 
@@ -28,5 +30,14 @@
         console.log(data);
         console.log("所以 异步函数是哪个线程在执行 ？");
     })
+    /**
+     * 执行结果
+     *
+     *new Promise之前
+     * 异步执行中
+     * new promise之后
+     *{a: 1, b: 2}
+     * 所以 异步函数是哪个线程在执行 ？
+     * */
 </script>
 </html>
