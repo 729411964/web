@@ -14,6 +14,7 @@
     }
     function taskB(value) {
         console.log("Task B",value);
+        return "wing"
     }
     function onRejected(error) {
         console.log("Catch Error: A or B", error);
@@ -33,11 +34,11 @@
      *
      * Task A 2
      * Task B 3
-     * Final Task undefined
+     * Final Task wing
      *
      * taskA中返回了 promise对象
-     * taskB接受到了 taskA中 promise对象的值
-     * finalTask 未接受到promise对象的值
+     * taskB接受到了 taskA中 promise对象的值 并return了"wing"字符串
+     * finalTask 接受到taskBf返回的值
      *
      * */
 </script>
