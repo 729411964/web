@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise.all 示例</title>
+</head>
+<body>
+
+</body>
+<script src="../jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    function getPromise(data) {
+        return new Promise(function (resolve, reject) {
+            resolve(data);
+        });
+    }
+    var request = {
+        a: function () {
+            return getPromise({a:1}).then(JSON.stringify);
+        },
+        b: function () {
+            return getPromise({b:2}).then(JSON.stringify);
+        }
+    };
+    function main() {
+        return Promise.all([request.a(), request.b()]);
+    }
+    // 运行示例
+    main().then(function (value) {
+        console.log(value);
+    }).catch(function(error){
+        console.log(error);
+    });
+    /**
+     *执行结果为  ["{"a":1}", "{"b":2}"]
+     *
+     * Promise.all 接收一个 promise对象的数组作为参数，当这个数组里的所有promise对象全部变为resolve或reject状态的时候，它才会去调用 .then 方法。
+     *
+     *而且每个promise的结果（resolve或reject时传递的参数值），和传递给 Promise.all 的promise数组的顺序是一致的。也就是说，这时候 .then 得到的promise数组的执行结果的顺序是固定的，即 [a, b]。(上例中)
+     *
+     * */
+</script>
+</html>

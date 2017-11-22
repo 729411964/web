@@ -30,12 +30,14 @@
         console.log(data);
         console.log("所以 异步函数是哪个线程在执行 ？");
     })
+    console.log("then之后");
     /**
      * 执行结果
      *
      *new Promise之前
      * 异步执行中
      * new promise之后
+     * then之后
      *{a: 1, b: 2}
      * 所以 异步函数是哪个线程在执行 ？
      * */
