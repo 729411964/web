@@ -12,9 +12,10 @@
 - 使用ES6 http://es6.ruanyifeng.com/#docs/intro   ES6支持程度 https://kangax.github.io/compat-table/es6/
 - babel https://babeljs.cn/
 - webpack https://webpack.js.org/
-- gulp http://www.gulpjs.com.cn/
+- gulp http://www.gulpjs.com.cn/ gulp插件 https://gulpjs.com/plugins/
 - vue https://cn.vuejs.org/index.html
 - lodash https://github.com/lodash/lodash/wiki/Changelog  && https://lodash.com/
+- gulp下，浏览器静态服务器与自动刷新 http://www.browsersync.cn/docs/gulp/
 
 ### 扩展知识
 
@@ -24,3 +25,4 @@
 - JavaScript 运行机制详解 http://www.ruanyifeng.com/blog/2014/10/event-loop.html
 - JavaScript Promise http://liubin.org/promises-book/
 - package.json详解 http://javascript.ruanyifeng.com/nodejs/packagejson.html
+- Source Map http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html && Source Map 生成工具 https://www.npmjs.com/package/gulp-sourcemaps/
