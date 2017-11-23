@@ -7,5 +7,8 @@
     "test": "node wing.js"
   },
   "author": "wing xiaomiao",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
 }
