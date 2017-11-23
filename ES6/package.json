@@ -1,0 +1,11 @@
+{
+  "name": "es6_test",
+  "version": "1.0.0",
+  "description": "ES6测试",
+  "main": "wing.js",
+  "scripts": {
+    "test": "node wing.js"
+  },
+  "author": "wing xiaomiao",
+  "license": "ISC"
+}
