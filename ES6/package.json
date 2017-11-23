@@ -4,7 +4,8 @@
   "description": "ES6测试",
   "main": "wing.js",
   "scripts": {
-    "test": "node wing.js"
+    "test": "node wing.js",
+    "build": "babel src -d lib"
   },
   "author": "wing xiaomiao",
   "license": "ISC",
