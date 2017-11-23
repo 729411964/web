@@ -14,6 +14,7 @@
 - webpack https://webpack.js.org/
 - gulp http://www.gulpjs.com.cn/
 - vue https://cn.vuejs.org/index.html
+- lodash https://github.com/lodash/lodash/wiki/Changelog  && https://lodash.com/
 
 ### 扩展知识
 
