@@ -2,10 +2,10 @@ const gulp  =require('gulp'); //gulp
 const babel = require('gulp-babel'); //gulp babel
 const browserSync = require('browser-sync').create();
 const less = require("gulp-less");
-
+const browserify = require('gulp-browserify');
 
 // 静态服务器
-gulp.task('serve',['babel','less','html'], function() {
+gulp.task('serve',['browserify','less','html'], function() {
     browserSync.init({
         browser: "google chrome",
         server: {
@@ -32,8 +32,17 @@ gulp.task('babel', function () {
         .pipe(gulp.dest('dev'));
 
 });
+//合并打包 ES6模块
+gulp.task('browserify',['babel'],function () {
+    return gulp.src('dev/**/*.js')
+        .pipe(browserify({
+            insertGlobals : true,
+            debug : !gulp.env.production
+        }))
+        .pipe(gulp.dest('dev'));
+})
 //执行babel后，刷新浏览器
-gulp.task('babel-watch',['babel'],function () {
+gulp.task('babel-watch',['browserify'],function () {
     browserSync.reload();
 });
 

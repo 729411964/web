@@ -5,7 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-
+<div>module1.js import了module2</div>
+<div>module3.js import了module1</div>
+<div>并没有处理好这里，module2加载了两回，原因是 browserify合并的锅</div>
 </body>
 <script src="../js/module1.js"></script>
+<script src="../js/module3.js"></script>
 </html>
