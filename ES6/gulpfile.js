@@ -36,8 +36,7 @@ gulp.task('babel', function () {
 gulp.task('browserify',['babel'],function () {
     return gulp.src('dev/**/*.js')
         .pipe(browserify({
-            insertGlobals : true,
-            debug : !gulp.env.production
+            insertGlobals : true
         }))
         .pipe(gulp.dest('dev'));
 })
