@@ -16,6 +16,7 @@
 - vue https://cn.vuejs.org/index.html
 - lodash https://github.com/lodash/lodash/wiki/Changelog  && https://lodash.com/
 - gulp下，浏览器静态服务器与自动刷新 http://www.browsersync.cn/docs/gulp/
+- 校验插件validator https://validator.niceue.com/
 
 ### 扩展知识
 
