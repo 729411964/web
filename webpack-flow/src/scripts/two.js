@@ -1,3 +1,4 @@
+import css from '../css/one.less';
 let pageData = {};
 
 //Fn 对外抛出 函数log
