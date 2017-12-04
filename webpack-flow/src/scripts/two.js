@@ -1,4 +1,5 @@
-import css from '../css/one.less';
+import '../css/one.less';
+import "../css/two.css";
 let pageData = {};
 
 //Fn 对外抛出 函数log

@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 27:
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17,4 +17,4 @@ _two2.default.log2("one");
 
 /***/ })
 
-},[27]);
+},[29]);

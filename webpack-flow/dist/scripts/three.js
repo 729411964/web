@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 60:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17,4 +17,4 @@ _two2.default.log2("three");
 
 /***/ })
 
-},[60]);
+},[62]);
