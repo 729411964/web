@@ -1,6 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
 // webpack 配置项
 const webpackConfig = {
+    context:__dirname,
     entry:{
         one:"./src/scripts/one.js",
         three:"./src/scripts/three.js"
@@ -32,6 +34,15 @@ const webpackConfig = {
                 }]
             }
         ]
-    }
+    },
+    devServer: {
+         contentBase: './dist'
+    },
+    plugins:[
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common' // 指定公共 bundle 的名称。
+        })
+    ]
+
 };
 module.exports = webpackConfig;
