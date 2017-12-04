@@ -5,18 +5,14 @@
 - 依赖nodejs https://nodejs.org/en/ 
 - 使用require.js http://www.ruanyifeng.com/blog/2012/11/require_js.html
 - 使用jquery库 http://www.css88.com/jqapi-1.9/
-- 表单序列化库 https://github.com/marioizquierdo/jquery.serializeJSON   
-- 时间格式化库 http://momentjs.cn
-- 金额格式化库 http://openexchangerates.github.io/accounting.js
 - 使用less http://lesscss.cn
 - 使用ES6 http://es6.ruanyifeng.com/#docs/intro   ES6支持程度 https://kangax.github.io/compat-table/es6/
 - babel https://babeljs.cn/
 - webpack https://webpack.js.org/
 - gulp http://www.gulpjs.com.cn/ gulp插件 https://gulpjs.com/plugins/
 - vue https://cn.vuejs.org/index.html
-- lodash https://github.com/lodash/lodash/wiki/Changelog  && https://lodash.com/
 - gulp下，浏览器静态服务器与自动刷新 http://www.browsersync.cn/docs/gulp/
-- 校验插件validator https://validator.niceue.com/
+
 
 ### 扩展知识
 
@@ -27,3 +23,12 @@
 - JavaScript Promise http://liubin.org/promises-book/
 - package.json详解 http://javascript.ruanyifeng.com/nodejs/packagejson.html
 - Source Map http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html && Source Map 生成工具 https://www.npmjs.com/package/gulp-sourcemaps/
+
+### 工具类库
+
+- lodash https://github.com/lodash/lodash/wiki/Changelog  && https://lodash.com/
+- 表单序列化库 https://github.com/marioizquierdo/jquery.serializeJSON
+- 时间格式化库 http://momentjs.cn
+- 金额格式化库 http://openexchangerates.github.io/accounting.js
+- 校验插件validator https://validator.niceue.com/
+- 处理货币值与浮点数 https://github.com/scurker/currency.js
