@@ -9,8 +9,8 @@ const webpackConfig = {
         three: "./src/scripts/three.js"
     },
     output: {
-        path: path.resolve(__dirname, "dist/scripts"), // string
-        filename: "[name].js",
+        path: path.resolve(__dirname, "dist"), // string
+        filename: "scripts/[name].js",
     },
     module: {
         rules: [
@@ -41,6 +41,19 @@ const webpackConfig = {
                 }, {
                     loader: "less-loader" // compiles Less to CSS
                 }]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                include: path.resolve(__dirname, "src/image"),
+                use: [
+                    {
+                        loader:"url-loader",
+                        options:{
+                            limit:8192,
+                            name:"image/[name].[hash:8].[ext]" //在打包根目录（output.path）下生成处理后的图片。
+                        }
+                    }
+                ]
             }
         ]
     },
