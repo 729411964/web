@@ -1,0 +1,14 @@
+{
+  "name": "wing_npm_test",
+  "version": "1.0.1",
+  "description": "wing的npm测试包",
+  "main": "./lib/wing.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "author": "wing",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.5"
+  }
+}
