@@ -29,7 +29,7 @@
                 </h1>
                 <h2>
                     <p>Welcome to your iView app!</p>
-                    <Button type="ghost" @click="handleStart">Start iView</Button>
+                    <Button type="ghost" @click="handleStart(data_wing,$event,'aaa')">Start iView</Button>
                 </h2>
             </Col>
         </Row>
@@ -45,7 +45,8 @@
           }
         },
         methods: {
-            handleStart () {
+            handleStart (data,event,str) {
+                console.log(data,event,str);
                 console.log(this);
                 console.log(this.$route);
                 console.log(this.$router);
@@ -53,9 +54,22 @@
                     title: 'Bravo',
                     content: 'Now, enjoy the convenience of iView.'
                 });
-            },
-            method_wing (){
+                console.log(this.util);
 
+                this.axios({
+                    url: '/sssss',
+                    data: {
+                        firstName: 'Fred',
+                        aaa:JSON.stringify({a:1,b:2})
+                    }
+                }).then(function (data) {
+                    console.log("success",data);
+                }).catch(function (error) {
+                    console.log(error);
+                })
+            },
+            method_wing (data,event,str){
+                console.log(data,event,str);
             },
             method_wing2 (){
 

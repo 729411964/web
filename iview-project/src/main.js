@@ -2,12 +2,12 @@ import Vue from 'vue';
 import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './router';
-import Util from './libs/util';
+import Tools from './libs/tools';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
-
 Vue.use(VueRouter);
 Vue.use(iView);
+Vue.use(Tools);
 
 // 路由配置
 const RouterConfig = {
@@ -18,14 +18,17 @@ const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
-    Util.title(to.meta.title);
+    Tools.util.title(to.meta.title);
     next();
 });
 
 router.afterEach((to, from, next) => {
     iView.LoadingBar.finish();
+    console.log(this);
     window.scrollTo(0, 0);
 });
+
+
 
 new Vue({
     el: '#app',

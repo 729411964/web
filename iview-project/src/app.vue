@@ -49,7 +49,7 @@
                 </Menu>
             </Header>
             <Layout>
-                <Sider hide-trigger :style="{background: '#fff'}">
+                <Sider hide-trigger :style="{background: '#fff'}" ref="side1">
                     <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
                         <Submenu name="1">
                             <template slot="title">
