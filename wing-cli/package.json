@@ -1,0 +1,15 @@
+{
+  "name": "wing-cli",
+  "version": "1.0.0",
+  "description": "the cli test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wing",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "commander": "^2.9.0"
+  }
+}

@@ -56,7 +56,7 @@
                 });
                 console.log(this.util);
 
-                this.axios({
+                this.$axios({
                     url: '/sssss',
                     data: {
                         firstName: 'Fred',

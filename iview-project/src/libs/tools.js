@@ -5,7 +5,7 @@ let module = {
     axios
 };
 module.install = function (Vue) {
-    Vue.prototype.util = util;
-    Vue.prototype.axios = axios;
+    Vue.prototype.$util = util;
+    Vue.prototype.$axios = axios;
 }
 export default module;

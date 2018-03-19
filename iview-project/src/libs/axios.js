@@ -5,6 +5,7 @@ axios.defaults.timeout = 10000;
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.transformRequest = [function (data, headers) {
     // By default, axios serializes JavaScript objects to JSON. To send data in the application/x-www-form-urlencoded format instead, you can use the following options.
+    console.log(qs.stringify(data));
     return qs.stringify(data);
 }];
 axios.defaults.validateStatus = function (status) {
