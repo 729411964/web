@@ -1,4 +1,5 @@
 import store from 'store';
+import config from '../config/config'
 let util = {
 
 };
@@ -37,6 +38,9 @@ util.getType = function (obj) {
     typeArr = typeStr.split(" ");
     return typeArr[1];
 };
+util.getUrl = function (url) {
+    return config.port+url;
+}
 /**
  * @param  {[Function]}  延时调用函数
  * @param  {[Number]}  延迟多长时间
