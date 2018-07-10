@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>echarts 3D地图示例</title>
+    <style>
+        html{
+            height: 100%;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100%;
+        }
+        .testArea{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            padding: 20px 10px;
+        }
+
+        .testList{
+            width: 150px;
+            flex-shrink:0; /* default 1 */
+            overflow: auto;
+        }
+        .testList li{
+            text-align: center;
+            cursor: pointer;
+        }
+        .testList li:hover{
+            color: #e50017;
+        }
+        .testList li.active{
+            color: #e50017;
+        }
+
+        .mainArea{
+            width: 100%;
+            height: 100%;
+        }
+        .listUl li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<div class="testArea">
+    <div class="testList">
+        <ul class="listUl"></ul>
+    </div>
+    <div id="main" class="mainArea"></div>
+
+</div>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="http://api.map.baidu.com/api?v=3.0&ak=Y1zCpIGrgfV9uGv9ElM9GH0lMukwFFOX"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/echarts-gl.min.js"></script>
+<script src="js/bmap.min.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var page = (function () {
+        var module = {};
+        var fn = {};
+        var myChart;
+        var flag=true;
+        var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+
+        fn.initEcharts = function(){
+            myChart = echarts.init(document.getElementById('main'));
+            // 指定图表的配置项和数据
+            fn.initEchartMap();
+        };
+        fn.initEchartMap = function(name = "china",cnName = "中国"){
+            flag = false;
+            $.get(`./geojson/haveChildrenArea/${name}.json`, function(chinaJson) {
+                flag = true;
+                console.log(chinaJson);
+                echarts.registerMap('chinaTest', chinaJson);
+                var lineData = [];
+                chinaJson.features.forEach(function (value,index) {
+                    if(index && value.properties.center){
+                        lineData.push(
+                            {
+                                toName: value.properties.name,
+                                coords: [chinaJson.features[0].properties.center || [],value.properties.center || []]
+                            }
+                        )
+                    }
+                })
+                var option = {
+                    backgroundColor: '#404a59',
+                    title: {
+                        text: `${cnName}地图示例`,
+                        x:'center',
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    geo3D: {
+                        map: 'chinaTest',
+                        boxHeight:10,
+                        regionHeight:1, //模型的高度
+                        itemStyle: {
+                            color:"#323c48",
+                            borderWidth:0
+                        },
+                        regions:chinaJson.features.map(function (dataItem) {
+                            return {
+                                name: dataItem.properties.name,
+                                itemStyle: {
+                                    color: '#' +
+                                    (function(color){
+                                        return (color +=  '0123456789abcdef'[Math.floor(Math.random()*16)])
+                                        && (color.length == 6) ?  color : arguments.callee(color);
+                                    })(''),
+                                    borderColor: '#111'
+                                }
+
+                            };
+                        }),
+                        groundPlane:{
+                            show:false
+                        },
+
+                    },
+                    series: [
+                        {
+                            type: 'lines3D',
+                            zlevel: 1,
+
+                            coordinateSystem: 'geo3D',
+
+                            effect: {
+                                show: true,
+                                trailWidth: 2,
+                                trailLength: 0.2
+                            },
+
+                            blendMode: 'lighter',
+
+                            lineStyle: {
+                                width: 2,
+                                color: 'rgb(50, 50, 150)',
+                                opacity: 0.2
+                            },
+                            data:lineData
+                        },
+                        {
+                            type: 'scatter3D',
+                            coordinateSystem: 'geo3D',
+                            zlevel: 1,
+                            rippleEffect: {
+                                brushType: 'stroke'
+                            },
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'right',
+                                    formatter: '{b}'
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: "#a6c84c"
+                                }
+                            },
+                            data: chinaJson.features.map(function (dataItem) {
+                                return {
+                                    name: dataItem.properties.name,
+                                    value: (dataItem.properties.center || []).concat([0])
+                                };
+                            })
+                        }
+
+                    ]
+                }
+
+                myChart.setOption(option);
+
+            });
+
+        }
+        fn.initList = function(){
+            var listData=[
+                {
+                    "cnName":"世界地图-wgs84",
+                    "name":"world"
+                },
+                {
+                    "cnName":"世界地图-米勒投影",
+                    "name":"world-mile"
+                },
+                {
+                    "cnName":"世界地图-埃克特三世投影",
+                    "name":"world-eckert3"
+                },
+                {
+                    "cnName":"世界地图-罗宾森投影",
+                    "name":"world-robinson"
+                },
+                {
+                    "cnName":"中国",
+                    "name":"china"
+                },
+                {
+                    "cnName":"北京",
+                    "name":"beijing"
+                },
+                {
+                    "cnName":"天津",
+                    "name":"tianjin"
+                },
+                {
+                    "cnName":"上海",
+                    "name":"shanghai"
+                },
+                {
+                    "cnName":"重庆",
+                    "name":"chongqing"
+                },
+                {
+                    "cnName":"香港",
+                    "name":"xianggang"
+                },
+                {
+                    "cnName":"安徽",
+                    "name":"anhui"
+                },
+                {
+                    "cnName":"福建",
+                    "name":"fujian"
+                },
+                {
+                    "cnName":"甘肃",
+                    "name":"gansu"
+                },
+                {
+                    "cnName":"广东",
+                    "name":"guangdong"
+                },
+                {
+                    "cnName":"广西",
+                    "name":"guangxi"
+                },
+                {
+                    "cnName":"贵州",
+                    "name":"guizhou"
+                },
+                {
+                    "cnName":"海南",
+                    "name":"hainan"
+                },
+                {
+                    "cnName":"河北",
+                    "name":"hebei"
+                },
+                {
+                    "cnName":"黑龙江",
+                    "name":"heilongjiang"
+                },
+                {
+                    "cnName":"河南",
+                    "name":"henan"
+                },
+                {
+                    "cnName":"湖北",
+                    "name":"hubei"
+                },
+                {
+                    "cnName":"湖南",
+                    "name":"hunan"
+                },
+                {
+                    "cnName":"江苏",
+                    "name":"jiangsu"
+                },
+                {
+                    "cnName":"江西",
+                    "name":"jiangxi"
+                },
+                {
+                    "cnName":"吉林",
+                    "name":"jilin"
+                },
+                {
+                    "cnName":"辽宁",
+                    "name":"liaoning"
+                },
+                {
+                    "cnName":"内蒙古",
+                    "name":"neimenggu"
+                },
+                {
+                    "cnName":"宁夏",
+                    "name":"ningxia"
+                },
+                {
+                    "cnName":"青海",
+                    "name":"qinghai"
+                },
+                {
+                    "cnName":"山东",
+                    "name":"shandong"
+                },
+                {
+                    "cnName":"山西",
+                    "name":"shanxi"
+                },
+                {
+                    "cnName":"陕西",
+                    "name":"shanxi1"
+                },
+                {
+                    "cnName":"台湾",
+                    "name":"taiwan"
+                },
+                {
+                    "cnName":"新疆",
+                    "name":"xinjiang"
+                },
+                {
+                    "cnName":"西藏",
+                    "name":"xizang"
+                },
+                {
+                    "cnName":"云南",
+                    "name":"yunnan"
+                },
+                {
+                    "cnName":"浙江",
+                    "name":"zhejiang"
+                },
+            ]
+            var htmlStr = "";
+            listData.forEach(function (val) {
+                htmlStr += `<li class="list-li" data-name="${val.name}" data-cnname="${val.cnName}" data-fn="clickLeftList">${val.cnName}</li>`
+            });
+            $(".listUl").html(htmlStr);
+        },
+            module.init = function () {
+                fn.initList();
+                fn.initEcharts();
+            }
+        module.clickLeftList = function (_this) {
+            var name = _this.data("name") || "";
+            var cnName = _this.data("cnname") || "";
+            flag && fn.initEchartMap(name,cnName)
+        }
+        return module;
+    })();
+    $(function () {
+        page.init();
+        $(document).on("click",".list-li",function () {
+            var _this = $(this);
+            _this.toggleClass("active").siblings("li").removeClass("active")
+            var fnName = _this.data("fn") || "";
+            page[fnName] ? page[fnName](_this) : console.log("未找到对应的回调函数")
+        })
+
+    });
+
+</script>
+</body>
+</html>
